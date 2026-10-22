@@ -21,6 +21,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Zooro",
   description: "Zooro - simple, modern solutions for your business.",
+  icons: {
+    icon: "/website-fvcon.png",
+  },
 };
 
 export const viewport: Viewport = {

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -30,15 +31,14 @@ export default function Header() {
         }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
-        {/* Logo: swap this block for <Image src="/logo.png" .../> once you have the final file */}
         <Link href="/" className="group flex items-center gap-3" aria-label="ZOORO Hospitality home">
-          <span className="flex h-11 w-11 items-center justify-center rounded-full border-[3px] border-brand-red bg-white font-display text-xl font-extrabold text-brand-red transition-transform duration-300 group-hover:rotate-[-8deg] group-hover:scale-105">
-            Z
-          </span>
-          <span className="leading-none">
-            <span className="block font-display text-xl font-extrabold tracking-tight text-brand-red">ZOORO</span>
-            <span className="block text-[11px] font-bold tracking-wide text-brand-ink">HOSPITALITY</span>
-          </span>
+          <Image
+            src="/web-logo.jpeg"
+            alt="ZOORO Catering & Meal Services"
+            width={1240}
+            height={496}
+            className="h-14 w-auto transition-transform duration-300 group-hover:scale-[1.03]"
+          />
         </Link>
 
         {/* Desktop links */}
