@@ -83,7 +83,6 @@ const services = [
     caption: "Your canteen, run by us.",
     summary: "A full canteen inside your office, run by our team.",
     image: "/corparate-canteen.png",
-    video: "/wp-video.mp4",
     imageAlt: "The ZOORO corporate canteen serving counter",
     stat: "QR",
     statLabel: "scan & serve",
@@ -180,7 +179,6 @@ const services = [
     caption: "Balanced, labelled, consistent.",
     summary: "Balanced meals designed around wellbeing.",
     image: "/helthy-food.png",
-    video: "/healhty-food.mp4",
     imageAlt: "A balanced ZOORO healthy meal",
     stat: "Per dish",
     statLabel: "calories & allergens",
@@ -351,7 +349,7 @@ export default function ServicesContent() {
                       alt={image.alt}
                       fill
                       priority={i < 2}
-                      sizes="(min-width: 1024px) 240px, (min-width: 640px) 250px, 45vw"
+                      sizes="(min-width: 1024px) 260px, (min-width: 640px) 280px, 48vw"
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/85 via-brand-ink/10 to-transparent" />
@@ -394,11 +392,12 @@ export default function ServicesContent() {
             </Reveal>
           </div>
 
-          <div
-            role="tablist"
-            aria-label="Our services"
-            className="-mx-6 mt-10 flex snap-x snap-mandatory gap-2 overflow-x-auto px-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:grid lg:grid-cols-5 lg:gap-3 lg:overflow-visible lg:px-0 lg:pb-0"
-          >
+          <div className="relative mt-10">
+            <div
+              role="tablist"
+              aria-label="Our services"
+              className="-mx-6 flex snap-x snap-mandatory gap-2 overflow-x-auto px-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:grid lg:grid-cols-5 lg:gap-3 lg:overflow-visible lg:px-0 lg:pb-0"
+            >
             {services.map((service, index) => {
               const isActive = service.id === active;
               return (
@@ -448,6 +447,11 @@ export default function ServicesContent() {
                 </button>
               );
             })}
+            </div>
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 right-0 z-10 w-10 bg-gradient-to-l from-white to-transparent lg:hidden"
+            />
           </div>
 
           <div className="mt-5">
@@ -464,31 +468,14 @@ export default function ServicesContent() {
                 className="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-brand-ink/10"
               >
                 <div className="grid lg:grid-cols-[0.92fr_1.08fr]">
-                  <div className="relative min-h-[280px] overflow-hidden bg-brand-ink lg:min-h-[540px]">
-                    {current.video ? (
-                      <video
-                        autoPlay={!reduce}
-                        muted
-                        loop
-                        playsInline
-                        preload="metadata"
-                        poster={current.image}
-                        aria-hidden="true"
-                        tabIndex={-1}
-                        className="absolute inset-0 h-full w-full object-cover"
-                      >
-                        <source src={current.video} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    ) : (
-                      <Image
-                        src={current.image}
-                        alt={current.imageAlt}
-                        fill
-                        sizes="(min-width: 1024px) 500px, 100vw"
-                        className="object-cover"
-                      />
-                    )}
+                  <div className="relative aspect-[16/10] min-h-[260px] overflow-hidden bg-brand-ink lg:aspect-auto lg:min-h-[540px]">
+                    <Image
+                      src={current.image}
+                      alt={current.imageAlt}
+                      fill
+                      sizes="(min-width: 1024px) 500px, 100vw"
+                      className="object-cover"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/95 via-brand-ink/30 to-brand-ink/5" />
 
                     <div className="absolute right-4 top-4 rounded-2xl bg-white/10 px-4 py-3 ring-1 ring-white/20 backdrop-blur-sm">

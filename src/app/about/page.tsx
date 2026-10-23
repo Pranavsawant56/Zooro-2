@@ -375,6 +375,94 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* INSIDE ZOORO */}
+      <section className="bg-brand-cream py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end lg:gap-12">
+            <Reveal>
+              <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-brand-red">
+                <span className="h-px w-8 bg-brand-red" />
+                Inside ZOORO
+              </p>
+              <h2 className="mt-5 max-w-xl text-balance font-display text-3xl font-extrabold leading-[1.05] sm:text-5xl">
+                A day in our kitchen
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1} className="lg:pb-2">
+              <p className="max-w-xl text-base text-brand-ink/60 sm:text-lg lg:ml-auto">
+                From the first breakfast counter to the last festival spread, this is what a ZOORO service
+                looks like.
+              </p>
+            </Reveal>
+          </div>
+
+          <Reveal delay={0.08}>
+            <div className="mx-auto mt-12 grid w-full max-w-2xl grid-cols-2 gap-3 sm:gap-4 lg:max-w-none lg:grid-cols-[1.2fr_0.4fr_0.4fr]">
+              <div className="group relative col-span-2 aspect-[2/1] overflow-hidden rounded-3xl bg-brand-ink shadow-lg ring-1 ring-brand-ink/10 lg:col-span-1 lg:row-span-2 lg:aspect-auto lg:h-full">
+                <Image
+                  src="/corparate-canteen.png"
+                  alt="A ZOORO corporate canteen before service"
+                  fill
+                  sizes="(min-width: 1024px) 650px, 100vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/95 via-brand-ink/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-brand-gold">
+                    Everyday dining
+                  </p>
+                  <p className="mt-1.5 max-w-xs font-display text-lg font-extrabold leading-tight text-white sm:text-2xl">
+                    Fresh counters, ready before the first break.
+                  </p>
+                </div>
+              </div>
+
+              <div className="group relative aspect-[4/3] overflow-hidden rounded-3xl bg-brand-ink shadow-lg ring-1 ring-brand-ink/10 lg:col-span-2 lg:aspect-[16/9]">
+                <Image
+                  src="/Flaming wok stir-fry in a professional kitchen.png"
+                  alt="A ZOORO chef cooking in a high-volume kitchen"
+                  fill
+                  sizes="(min-width: 1024px) 440px, (min-width: 640px) 380px, 50vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/85 via-brand-ink/10 to-transparent" />
+                <p className="absolute inset-x-0 bottom-0 p-4 text-[10px] font-bold uppercase tracking-[0.16em] text-white">
+                  Industrial kitchens
+                </p>
+              </div>
+
+              <div className="group relative aspect-[4/3] overflow-hidden rounded-3xl bg-brand-ink shadow-lg ring-1 ring-brand-ink/10 lg:aspect-square">
+                <Image
+                  src="/helthy-food.png"
+                  alt="A balanced ZOORO healthy meal"
+                  fill
+                  sizes="(min-width: 1024px) 215px, (min-width: 640px) 380px, 50vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/85 via-brand-ink/10 to-transparent" />
+                <p className="absolute inset-x-0 bottom-0 p-4 text-[10px] font-bold uppercase tracking-[0.16em] text-white">
+                  Healthy plans
+                </p>
+              </div>
+
+              <div className="group relative col-span-2 aspect-[12/5] overflow-hidden rounded-3xl bg-brand-ink shadow-lg ring-1 ring-brand-ink/10 lg:col-span-1 lg:aspect-square">
+                <Image
+                  src="/bhuffi.png"
+                  alt="A ZOORO buffet spread for a corporate event"
+                  fill
+                  sizes="(min-width: 1024px) 215px, 100vw"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/85 via-brand-ink/10 to-transparent" />
+                <p className="absolute inset-x-0 bottom-0 p-4 text-[10px] font-bold uppercase tracking-[0.16em] text-white">
+                  Events &amp; buffets
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* WHAT WE DO */}
       <section className="relative overflow-clip bg-brand-ink py-20 text-white sm:py-24">
         <div aria-hidden className="pointer-events-none absolute inset-0">

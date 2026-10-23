@@ -63,26 +63,52 @@ export default function ContactForm() {
     <form
       onSubmit={onSubmit}
       noValidate
-      className="rounded-3xl bg-white p-6 shadow-xl shadow-brand-red/10 sm:p-8"
+      className="rounded-[2rem] bg-white p-6 shadow-xl shadow-brand-red/10 ring-1 ring-brand-ink/10 sm:p-8"
     >
-      <h2 className="font-display text-2xl font-extrabold text-brand-ink">Send us an enquiry</h2>
+      <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-brand-red">
+        Enquiry form
+      </p>
+      <h2 className="mt-2 font-display text-2xl font-extrabold text-brand-ink">Send us an enquiry</h2>
+      <p className="mt-2 text-sm leading-relaxed text-brand-ink/55">
+        A few details are enough to get started. We&rsquo;ll reply with a menu and a clear quotation.
+      </p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <label className={label}>
-          Your name
-          <input name="name" autoComplete="name" className={field} />
+          Your name <span className="text-brand-red">*</span>
+          <input
+            name="name"
+            autoComplete="name"
+            required
+            aria-required="true"
+            className={field}
+          />
         </label>
         <label className={label}>
           Company
           <input name="company" autoComplete="organization" className={field} />
         </label>
         <label className={label}>
-          Phone
-          <input name="phone" type="tel" autoComplete="tel" className={field} />
+          Phone <span className="text-brand-red">*</span>
+          <input
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            required
+            aria-required="true"
+            className={field}
+          />
         </label>
         <label className={label}>
-          Email
-          <input name="email" type="email" autoComplete="email" className={field} />
+          Email <span className="text-brand-red">*</span>
+          <input
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            aria-required="true"
+            className={field}
+          />
         </label>
         <label className={label}>
           What do you need?
@@ -138,6 +164,7 @@ export default function ContactForm() {
       <motion.button
         type="submit"
         disabled={loading}
+        aria-busy={loading}
         whileHover={loading ? undefined : { scale: 1.02 }}
         whileTap={loading ? undefined : { scale: 0.97 }}
         className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3.5 font-bold text-white transition-colors hover:bg-brand-red-dark disabled:cursor-not-allowed disabled:opacity-70"
@@ -145,6 +172,9 @@ export default function ContactForm() {
         {loading && <Spinner tone="white" label="Sending enquiry" />}
         {loading ? "Sending…" : "Send enquiry"}
       </motion.button>
+      <p className="mt-3 text-center text-xs text-brand-ink/45">
+        We only use these details to respond to your enquiry.
+      </p>
     </form>
   );
 }
