@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { connection } from "next/server";
 import { Suspense } from "react";
+import { contact } from "@/lib/site";
 
 const quick = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About Us" },
   { href: "/services", label: "Services" },
+  { href: "/about#clients", label: "Our clients" },
   { href: "/contact", label: "Contact Us" },
 ];
 
@@ -15,6 +17,9 @@ const services = [
   "Festival & occasion meals",
   "Events & buffets",
   "Healthy meals",
+  "Food court",
+  "Weddings & bulk catering",
+  "Delivery kitchen",
 ];
 
 async function CurrentYear() {
@@ -39,6 +44,17 @@ export default function Footer() {
           <p className="mt-4 text-sm text-white/70">
             Good food, better people, brighter workplaces. Food for a better tomorrow.
           </p>
+          <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-white/40">
+            Trusted by 11 organisations across Pune
+          </p>
+          <a
+            href={contact.profilePdf}
+            download
+            className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-xs font-bold text-white/80 transition-colors hover:border-brand-gold/60 hover:text-brand-gold"
+          >
+            Corporate profile &amp; proposal
+            <span aria-hidden="true">&darr;</span>
+          </a>
         </div>
 
         <div>
@@ -69,21 +85,40 @@ export default function Footer() {
 
         <div>
           <h3 className="font-bold">Contact</h3>
-          <address className="mt-4 space-y-2 text-sm not-italic text-white/70">
+          <address className="mt-4 space-y-3 text-sm not-italic text-white/70">
             <p>
-              S.No. 52-3/1, Maruti Nagar, Lane No. 4,
+              {contact.addressLines[0]}
               <br />
-              Wadgaonsheri, Pune 411014
+              {contact.addressLines[1]}
+            </p>
+            <p className="space-y-1">
+              {contact.phones.map((phone) => (
+                <a
+                  key={phone.href}
+                  href={phone.href}
+                  className="block transition-colors hover:text-brand-gold"
+                >
+                  {phone.display}
+                </a>
+              ))}
             </p>
             <p>
-              <a href="mailto:sagar@zoorohospitality.com" className="transition-colors hover:text-brand-gold">
-                sagar@zoorohospitality.com
+              <a href={`mailto:${contact.email}`} className="transition-colors hover:text-brand-gold">
+                {contact.email}
               </a>
             </p>
             <p>
-              <a href="https://www.zoorohospitality.com" className="transition-colors hover:text-brand-gold">
-                www.zoorohospitality.com
+              <a
+                href={contact.websiteHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-brand-gold"
+              >
+                {contact.website}
               </a>
+            </p>
+            <p className="text-xs text-white/45">
+              {contact.director}, Director
             </p>
           </address>
         </div>

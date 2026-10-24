@@ -5,21 +5,11 @@ import Link from "next/link";
 import { useRef, useState, type KeyboardEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Reveal from "@/components/Reveal";
+import { contact, cuisines, operatingPlan } from "@/lib/site";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
 /* ---------- icons ---------- */
-
-function IconSliders({ className = "h-6 w-6" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-      <path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h10M18 18h2" />
-      <circle cx="16" cy="6" r="2" />
-      <circle cx="8" cy="12" r="2" />
-      <circle cx="16" cy="18" r="2" />
-    </svg>
-  );
-}
 
 function IconShield({ className = "h-6 w-6" }: { className?: string }) {
   return (
@@ -44,6 +34,46 @@ function IconLeaf({ className = "h-6 w-6" }: { className?: string }) {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
       <path d="M20 4C13 4 7 7.5 7 14a5 5 0 0 0 5 5c6.5 0 8-6 8-15Z" />
       <path d="M4 21c2.5-5 6-8 11-10" />
+    </svg>
+  );
+}
+
+function IconSparkle({ className = "h-6 w-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="m12 3 1.7 5.3L19 10l-5.3 1.7L12 17l-1.7-5.3L5 10l5.3-1.7L12 3Z" />
+      <path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z" />
+    </svg>
+  );
+}
+
+function IconCalendar({ className = "h-6 w-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <path d="M8 3v4M16 3v4M3 10h18" />
+      <path d="M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01" />
+    </svg>
+  );
+}
+
+function IconStore({ className = "h-6 w-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M4 10v10h16V10" />
+      <path d="M3 10 5 4h14l2 6" />
+      <path d="M3 10a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0" />
+      <path d="M9 20v-5h6v5" />
+    </svg>
+  );
+}
+
+function IconCoffee({ className = "h-6 w-6" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <path d="M4 8h12v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z" />
+      <path d="M16 10h2a3 3 0 0 1 0 6h-2" />
+      <path d="M6 3v2M10 3v2M14 3v2" />
     </svg>
   );
 }
@@ -132,13 +162,13 @@ const services = [
     summary: "Corporate meals for festivals and every special day.",
     image: "/Flaming wok stir-fry in a professional kitchen.png",
     imageAlt: "A festive dish being cooked over an open flame",
-    stat: "50–5,000",
+    stat: "50–1,000+",
     statLabel: "guests per event",
     points: [
       "Festive menus for Diwali, Eid, Christmas, Pongal, Sankranti and New Year",
       "National days, annual days, birthdays, farewells and client meets",
       "Special menus and paid add-ons such as sweets and beverages",
-      "From a thali for 50 to a buffet for thousands",
+      "From a thali for 50 to a buffet for 1,000+",
       "Any corporate meal requirement, big or small",
     ],
     tags: ["Festival menus", "Annual days", "Any occasion"],
@@ -194,22 +224,102 @@ const services = [
     bar: "bg-brand-leaf",
     chip: "bg-brand-leaf/10 text-brand-leaf",
   },
+  {
+    id: "food-court",
+    number: "06",
+    title: "Food court",
+    short: "Extra counter choices",
+    kicker: "Beyond the daily menu",
+    caption: "More choice, same site.",
+    summary: "Additional food choices for large teams and mixed tastes.",
+    image: "/corparate-canteen.png",
+    imageAlt: "A ZOORO food court counter with additional meal choices",
+    stat: "Counter",
+    statLabel: "separately priced",
+    points: [
+      "Additional choices beyond the regular meal menu",
+      "Selected items priced separately and paid at the counter",
+      "Available directly from the relevant food counter",
+      "Works alongside the daily cafeteria menu",
+      "Useful for large sites, mixed teams and longer service hours",
+    ],
+    tags: ["Extra choices", "Separate pricing", "Counter service"],
+    tint: "bg-brand-gold/15 text-brand-ink",
+    bar: "bg-brand-gold",
+    chip: "bg-brand-gold/15 text-brand-ink",
+  },
+  {
+    id: "weddings",
+    number: "07",
+    title: "Weddings & bulk catering",
+    short: "Celebrations at scale",
+    kicker: "Weddings & celebrations",
+    caption: "Big day. Bigger spread.",
+    summary: "Wedding menus and bulk catering for celebrations and large orders.",
+    image: "/bhuffi.png",
+    imageAlt: "A ZOORO buffet spread for a wedding or large celebration",
+    stat: "Bulk",
+    statLabel: "orders of every scale",
+    points: [
+      "Wedding menus and bulk catering orders of different scales",
+      "Menu planning around guest count, cuisine and service style",
+      "Buffet and counter service options",
+      "End-to-end coordination from setup to cleanup",
+      "Clear quotation based on the final guest count",
+    ],
+    tags: ["Weddings", "Bulk orders", "Custom menus"],
+    tint: "bg-brand-red/10 text-brand-red",
+    bar: "bg-brand-red",
+    chip: "bg-brand-red/10 text-brand-red",
+  },
+  {
+    id: "delivery",
+    number: "08",
+    title: "Delivery kitchen",
+    short: "Central kitchen, packed",
+    kicker: "Delivery kitchen",
+    caption: "Cooked centrally. Packed with care.",
+    summary: "Corporate meals prepared in our central kitchen and packed for delivery.",
+    image: "/Flaming wok stir-fry in a professional kitchen.png",
+    imageAlt: "A ZOORO central kitchen preparing meals for delivery",
+    stat: "Central",
+    statLabel: "kitchen in Pune",
+    points: [
+      "Central kitchen in Wadgaonsheri, Pune",
+      "Corporate meal requirements and bulk orders",
+      "Packed for safe transport and easy service",
+      "Menus planned around your location and timings",
+      "Clear quotation before dispatch",
+    ],
+    tags: ["Central kitchen", "Corporate meals", "Bulk orders"],
+    tint: "bg-brand-ink/5 text-brand-ink",
+    bar: "bg-brand-ink",
+    chip: "bg-brand-ink/5 text-brand-ink",
+  },
 ];
 
 const standards = [
   {
-    title: "Made for your operation",
+    title: "New-age cuisine",
     description:
-      "From daily office canteens to multi-shift plants and one-day events, menus and service are planned around your team.",
-    icon: IconSliders,
+      "Healthy, home-style food with great taste. Menus span Maharashtrian, Coastal, Contemporary Indian, Pan-Asian, Fusion and New World options.",
+    icon: IconLeaf,
+    tint: "bg-brand-leaf/10 text-brand-leaf",
+    bar: "bg-brand-leaf",
+  },
+  {
+    title: "Service standards",
+    description:
+      "One accountable team keeps food quality, presentation, cleanliness and customer service consistent across every site and shift.",
+    icon: IconShield,
     tint: "bg-brand-red/10 text-brand-red",
     bar: "bg-brand-red",
   },
   {
-    title: "Quality you can count on",
+    title: "Food standards",
     description:
-      "Standardised recipes and consistent kitchen routines help keep every meal reliable across people, shifts and sites.",
-    icon: IconShield,
+      "Appetising, health-conscious meals made with nutrient-rich ingredients and careful hygiene, from ingredient selection to final presentation.",
+    icon: IconSparkle,
     tint: "bg-brand-gold/15 text-brand-gold",
     bar: "bg-brand-gold",
   },
@@ -221,15 +331,9 @@ const standards = [
     tint: "bg-brand-ink/5 text-brand-ink",
     bar: "bg-brand-ink",
   },
-  {
-    title: "Food for different needs",
-    description:
-      "Choose from vegetarian, Jain, non-vegetarian and health-focused options, with nutrition and allergen details where needed.",
-    icon: IconLeaf,
-    tint: "bg-brand-leaf/10 text-brand-leaf",
-    bar: "bg-brand-leaf",
-  },
 ];
+
+const planIcons = [IconReceipt, IconCalendar, IconStore, IconCoffee];
 
 const steps = [
   { t: "Tell us your need", d: "Share headcount, location, meal timings or the occasion." },
@@ -305,8 +409,8 @@ export default function ServicesContent() {
 
             <Reveal delay={0.16}>
               <p className="mt-6 max-w-xl text-lg text-brand-ink/75">
-                From the daily office canteen to plant shifts, festival spreads, events and healthy
-                plans, ZOORO plans, cooks and serves it end to end.
+                From the daily office canteen to plant shifts, festival spreads, events, food courts,
+                weddings, bulk orders and healthy plans, ZOORO plans, cooks and serves it end to end.
               </p>
             </Reveal>
 
@@ -322,7 +426,7 @@ export default function ServicesContent() {
                   href="#services"
                   className="inline-block rounded-full border-2 border-brand-ink/80 px-7 py-3 text-center font-bold transition-colors hover:bg-brand-ink hover:text-white"
                 >
-                  Explore the five services
+                  Explore all services
                 </a>
               </div>
             </Reveal>
@@ -363,7 +467,7 @@ export default function ServicesContent() {
               <div className="absolute -bottom-5 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full bg-white px-5 py-3 shadow-xl ring-1 ring-brand-ink/10">
                 <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-brand-ink">
                   <span className="h-2 w-2 rounded-full bg-brand-gold" />
-                  Five services &middot; one partner
+                  Eight services &middot; one partner
                 </p>
               </div>
             </div>
@@ -381,7 +485,7 @@ export default function ServicesContent() {
                 What we offer
               </p>
               <h2 className="mt-5 max-w-xl text-balance font-display text-3xl font-extrabold leading-[1.05] sm:text-5xl">
-                Five services, one accountable partner
+                Eight services, one accountable partner
               </h2>
             </Reveal>
             <Reveal delay={0.1} className="lg:pb-2">
@@ -396,7 +500,7 @@ export default function ServicesContent() {
             <div
               role="tablist"
               aria-label="Our services"
-              className="-mx-6 flex snap-x snap-mandatory gap-2 overflow-x-auto px-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:grid lg:grid-cols-5 lg:gap-3 lg:overflow-visible lg:px-0 lg:pb-0"
+              className="-mx-6 flex snap-x snap-mandatory gap-2 overflow-x-auto px-6 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:grid lg:grid-cols-4 lg:gap-3 lg:overflow-visible lg:px-0 lg:pb-0"
             >
             {services.map((service, index) => {
               const isActive = service.id === active;
@@ -461,11 +565,11 @@ export default function ServicesContent() {
                 role="tabpanel"
                 id={`panel-${current.id}`}
                 aria-labelledby={`tab-${current.id}`}
-                initial={reduce ? false : { opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={reduce ? undefined : { opacity: 0, y: -12 }}
+                exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.4, ease }}
-                className="overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-brand-ink/10"
+                className="zooro-tabpanel overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-brand-ink/10"
               >
                 <div className="grid lg:grid-cols-[0.92fr_1.08fr]">
                   <div className="relative aspect-[16/10] min-h-[260px] overflow-hidden bg-brand-ink lg:aspect-auto lg:min-h-[540px]">
@@ -558,7 +662,7 @@ export default function ServicesContent() {
             <Reveal>
               <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-brand-red">
                 <span className="h-px w-8 bg-brand-red" />
-                The ZOORO standard
+                Our USP
               </p>
               <h2 className="mt-5 max-w-xl text-balance font-display text-3xl font-extrabold leading-[1.05] sm:text-5xl">
                 A meal service that works for your people
@@ -566,8 +670,8 @@ export default function ServicesContent() {
             </Reveal>
             <Reveal delay={0.1} className="lg:pb-2">
               <p className="max-w-xl text-base text-brand-ink/60 sm:text-lg lg:ml-auto">
-                Good food is only part of the job. We make planning, service and follow-through easier
-                too.
+                Good food is only part of the job. Our USP is simple: new-age cuisine, consistent
+                service standards and food standards you can see on the plate.
               </p>
             </Reveal>
           </div>
@@ -598,6 +702,92 @@ export default function ServicesContent() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* CAFETERIA OPERATING PLAN */}
+      <section id="operating-plan" className="relative scroll-mt-24 overflow-clip bg-brand-ink py-20 text-white sm:py-24">
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-red/25 blur-3xl" />
+          <div className="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-brand-gold/10 blur-3xl" />
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-6">
+          <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end lg:gap-12">
+            <Reveal>
+              <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-brand-gold">
+                <span className="h-px w-8 bg-brand-gold" />
+                Cafeteria operating plan
+              </p>
+              <h2 className="mt-5 max-w-xl text-balance font-display text-3xl font-extrabold leading-[1.05] sm:text-5xl">
+                A cafeteria that changes with the calendar
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1} className="lg:pb-2">
+              <p className="max-w-xl text-base text-white/60 sm:text-lg lg:ml-auto">
+                A regular menu, festival moments, extra counters and all-day options — planned
+                together so the cafeteria keeps feeling fresh.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-2">
+            {operatingPlan.map((plan, i) => {
+              const Icon = planIcons[i] ?? IconReceipt;
+              return (
+                <Reveal key={plan.title} delay={(i % 2) * 0.08} className="h-full">
+                  <article className="group flex h-full flex-col rounded-3xl border border-white/10 bg-white/[0.04] p-6 transition-colors duration-300 hover:border-brand-gold/30 hover:bg-white/[0.06] sm:p-7">
+                    <div className="flex items-start justify-between gap-4">
+                      <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-gold/15 text-brand-gold">
+                        <Icon />
+                      </span>
+                      <span className="font-display text-sm font-bold tracking-wider text-white/20">
+                        0{i + 1}
+                      </span>
+                    </div>
+                    <h3 className="mt-5 font-display text-xl font-extrabold">{plan.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-white/60 sm:text-base">
+                      {plan.description}
+                    </p>
+                  </article>
+                </Reveal>
+              );
+            })}
+          </div>
+
+          <Reveal delay={0.16}>
+            <div id="cuisine-range" className="mt-6 scroll-mt-24 rounded-3xl border border-white/10 bg-white/[0.04] p-6 sm:p-8">
+              <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.24em] text-brand-gold">
+                    Cuisine range
+                  </p>
+                  <h3 className="mt-2 font-display text-2xl font-extrabold">A menu with range</h3>
+                </div>
+                <p className="max-w-xl text-sm leading-relaxed text-white/55">
+                  Indian, Chinese and Italian favourites, plus Maharashtrian, Coastal,
+                  Contemporary Indian, Pan-Asian, Fusion and New World options — all built into
+                  custom menus.
+                </p>
+              </div>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {cuisines.map((cuisine) => (
+                  <span
+                    key={cuisine}
+                    className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-semibold text-white/70"
+                  >
+                    {cuisine}
+                  </span>
+                ))}
+              </div>
+              <Link
+                href="/contact"
+                className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-brand-gold transition-colors hover:text-white"
+              >
+                Plan your cafeteria <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -672,13 +862,35 @@ export default function ServicesContent() {
           </div>
           <p className="mx-auto mt-8 max-w-xl text-[10px] font-semibold uppercase tracking-[0.16em] text-white/40">
             Corporate canteens &middot; Industrial catering &middot; Festivals &middot; Events &middot;
-            Healthy meals
+            Healthy meals &middot; Food courts &middot; Weddings &middot; Delivery kitchen
           </p>
-          <p className="mt-4 text-sm text-white/60">
-            <a href="mailto:sagar@zoorohospitality.com" className="font-semibold text-white hover:underline">
-              sagar@zoorohospitality.com
-            </a>
-          </p>
+          <div className="mt-4 space-y-2 text-sm text-white/60">
+            <p>
+              {contact.phones.map((phone, index) => (
+                <span key={phone.href}>
+                  <a href={phone.href} className="font-semibold text-white hover:underline">
+                    {phone.display}
+                  </a>
+                  {index === 0 ? " / " : ""}
+                </span>
+              ))}
+            </p>
+            <p>
+              <a href={`mailto:${contact.email}`} className="font-semibold text-white hover:underline">
+                {contact.email}
+              </a>
+            </p>
+            <p>
+              <a
+                href={contact.profilePdf}
+                download
+                className="inline-flex items-center gap-2 font-semibold text-brand-gold hover:text-white"
+              >
+                Download corporate profile &amp; proposal
+                <span aria-hidden="true">&darr;</span>
+              </a>
+            </p>
+          </div>
         </Reveal>
       </section>
     </div>

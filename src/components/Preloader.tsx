@@ -13,12 +13,10 @@ export default function Preloader() {
   const reduce = useReducedMotion();
   const [done, setDone] = useState(false);
 
-  // Visitors who prefer reduced motion never see the loader.
-  const visible = !done && !reduce;
+  // Visitors who prefer reduced motion never see the loader (hidden via CSS).
+  const visible = !done;
 
   useEffect(() => {
-    if (reduce) return;
-
     // Hide once the browser has actually finished loading the page and its
     // resources (images, fonts, etc.). This is real readiness — not a timer.
     const finish = () => setDone(true);
@@ -34,16 +32,16 @@ export default function Preloader() {
       window.removeEventListener("load", finish);
       window.clearTimeout(safety);
     };
-  }, [reduce]);
+  }, []);
 
   // Lock scrolling while the loader covers the page.
   useEffect(() => {
-    if (!visible) return;
+    if (!visible || reduce) return;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [visible]);
+  }, [visible, reduce]);
 
   return (
     <>
@@ -59,7 +57,7 @@ export default function Preloader() {
             role="status"
             aria-live="polite"
             aria-label="Loading ZOORO Hospitality"
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-8 bg-brand-cream"
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center gap-8 bg-brand-cream motion-reduce:hidden"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.6, ease } }}
           >

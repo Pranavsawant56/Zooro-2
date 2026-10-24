@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "ZOORO Hospitality",
     short_name: "ZOORO",
     description:
-      "Corporate canteens, industrial catering, festival and occasion meals, events and healthy meal plans.",
+      "Corporate canteens, industrial catering, cafeterias, events, food courts, weddings, bulk catering and healthy meal plans.",
     start_url: "/",
     display: "standalone",
     background_color: brand.cream,

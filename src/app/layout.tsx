@@ -19,8 +19,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Zooro",
-  description: "Zooro - simple, modern solutions for your business.",
+  title: {
+    default: "ZOORO Hospitality | Corporate Canteens & Catering in Pune",
+    template: "%s | ZOORO Hospitality",
+  },
+  description:
+    "ZOORO Hospitality is a Pune-based food-service provider delivering high-quality, hygienic and home-style meals for corporate and industrial establishments.",
+  keywords: [
+    "corporate canteen Pune",
+    "industrial catering Pune",
+    "corporate catering",
+    "cafeteria services",
+    "wedding catering",
+    "bulk catering",
+    "food court",
+    "delivery kitchen",
+  ],
   icons: {
     icon: "/website-fvcon.png",
   },
@@ -34,6 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-brand-cream text-brand-ink">

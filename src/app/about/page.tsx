@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
+import { ClientLogoWall } from "../components/ClientLogos";
+import { contact, factSheet, management } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "About Us | ZOORO Hospitality",
+  title: "About Us",
   description:
-    "ZOORO Hospitality runs corporate canteens, industrial catering, events and healthy meals from Pune. Good food, better people, brighter workplaces.",
+    "ZOORO Hospitality is a Pune-based food-service provider delivering high-quality, hygienic and home-style meals for corporate and industrial establishments, with 23 and 10 years of management experience.",
 };
 
 /* ---------- icons ---------- */
@@ -76,18 +78,11 @@ function IconReceipt() {
 
 /* ---------- data ---------- */
 
-const stats = [
-  { value: "On-site", label: "kitchens, cooked fresh" },
-  { value: "Multi-shift", label: "day and night coverage" },
-  { value: "FSSAI-ready", label: "hygiene and audit processes" },
-  { value: "End-to-end", label: "menu, service and cleanup" },
-];
-
 const pillars = [
   {
     title: "Our mission",
     description:
-      "To serve fresh, hygienic and healthy food at the workplace, cooked to real demand so nothing is wasted.",
+      "To provide good-quality, hygienic food at pocket-friendly prices, cooked to real demand, while earning long-term trust.",
     icon: IconTarget,
     tint: "bg-brand-red/10 text-brand-red",
     bar: "bg-brand-red",
@@ -130,6 +125,18 @@ const whatWeDo = [
   {
     title: "Healthy meal plans",
     text: "Balanced meals with nutrition and allergen information on every dish.",
+  },
+  {
+    title: "Food courts",
+    text: "Extra choices beyond the regular menu, with selected items priced separately at the counter.",
+  },
+  {
+    title: "Weddings and bulk catering",
+    text: "Menu planning and service for weddings, celebrations and bulk orders of different scales.",
+  },
+  {
+    title: "Delivery kitchen",
+    text: "Corporate meals prepared in our central kitchen and packed for delivery.",
   },
 ];
 
@@ -212,9 +219,22 @@ export default function AboutPage() {
               </div>
             </Reveal>
 
-            <Reveal delay={0.32}>
+            <Reveal delay={0.3}>
+              <a
+                href={contact.profilePdf}
+                download
+                className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand-red transition-colors hover:text-brand-red-dark"
+              >
+                Download corporate profile &amp; proposal
+                <span className="rounded-full bg-brand-red/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em]">
+                  PDF
+                </span>
+              </a>
+            </Reveal>
+
+            <Reveal delay={0.34}>
               <p className="mt-8 text-xs font-semibold uppercase tracking-[0.16em] text-brand-ink/45">
-                Pune-based &middot; Corporate canteens &middot; Industrial catering &middot; Events
+                Pune-based &middot; Corporate &amp; industrial catering
               </p>
             </Reveal>
           </div>
@@ -257,14 +277,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* STATS */}
-      <section className="bg-brand-red text-white">
+      {/* FACT SHEET */}
+      <section aria-label="ZOORO fact sheet" className="bg-brand-red text-white">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-2 gap-px bg-white/15 sm:grid-cols-4">
-            {stats.map((s, i) => (
-              <Reveal key={s.value} delay={i * 0.05} className="bg-brand-red px-4 py-6 sm:px-6">
+            {factSheet.map((s, i) => (
+              <Reveal key={s.label} delay={i * 0.05} className="bg-brand-red px-4 py-6 sm:px-6">
                 <p className="font-display text-lg font-extrabold sm:text-xl">{s.value}</p>
-                <p className="mt-1 text-xs text-white/70 sm:text-sm">{s.label}</p>
+                <p className="mt-1 text-xs font-semibold text-white/85 sm:text-sm">{s.label}</p>
+                <p className="mt-1 text-[10px] leading-relaxed text-white/50">{s.note}</p>
               </Reveal>
             ))}
           </div>
@@ -283,13 +304,19 @@ export default function AboutPage() {
               A food partner built around your workplace
             </h2>
             <p className="mt-5 max-w-xl text-base text-brand-ink/70 sm:text-lg">
-              We run kitchens and canteens inside our clients&rsquo; premises, so the food is cooked fresh, close to the
-              people who eat it. Our work spans corporate canteens, industrial catering, events and buffets, and
-              healthy meal plans.
+              ZOORO Hospitality Pvt. Ltd. is a professional food-service provider focused on
+              high-quality, hygienic and home-style meals for corporate and industrial
+              establishments. We run kitchens and canteens inside our clients&rsquo; premises, so the
+              food is cooked fresh, close to the people who eat it.
             </p>
             <p className="mt-4 max-w-xl text-base text-brand-ink/70 sm:text-lg">
               Good food makes better people, and better people build brighter workplaces. That belief shapes how we
               plan menus, how we run our kitchens and how we serve every plate.
+            </p>
+            <p className="mt-4 max-w-xl text-base text-brand-ink/70 sm:text-lg">
+              We follow applicable statutory requirements and established hygiene and sanitation
+              practices across food preparation and service. Our culinary team prepares delicious,
+              nutritious and customised food around each client&rsquo;s requirements.
             </p>
           </Reveal>
 
@@ -324,6 +351,77 @@ export default function AboutPage() {
                 </p>
               </div>
             </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* MANAGEMENT EXPERIENCE */}
+      <section id="management" className="relative scroll-mt-24 overflow-clip bg-brand-ink py-20 text-white sm:py-24">
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div className="absolute -right-40 -top-24 h-[30rem] w-[30rem] rounded-full bg-brand-red/20 blur-3xl" />
+          <div className="absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl" />
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-6">
+          <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end lg:gap-12">
+            <Reveal>
+              <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-brand-gold">
+                <span className="h-px w-8 bg-brand-gold" />
+                Management experience
+              </p>
+              <h2 className="mt-5 max-w-xl text-balance font-display text-3xl font-extrabold leading-[1.05] sm:text-5xl">
+                Led by people who know the kitchen
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1} className="lg:pb-2">
+              <p className="max-w-xl text-base text-white/60 sm:text-lg lg:ml-auto">
+                Food-service experience is not a side note for us. It is the reason our menus,
+                kitchens and counters work the way they do.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="mt-12 grid gap-5 md:grid-cols-2">
+            {management.map((person, i) => (
+              <Reveal key={person.name} delay={i * 0.08} className="h-full">
+                <article className="group flex h-full flex-col rounded-3xl border border-white/10 bg-white/[0.04] p-7 transition-colors duration-300 hover:border-brand-gold/30 hover:bg-white/[0.06] sm:p-8">
+                  <div className="flex items-start justify-between gap-4">
+                    <span
+                      className={`flex h-14 w-14 items-center justify-center rounded-2xl font-display text-lg font-extrabold ${
+                        i === 0 ? "bg-brand-red/20 text-brand-gold" : "bg-brand-gold/15 text-brand-gold"
+                      }`}
+                    >
+                      {person.name
+                        .replace("Mr. ", "")
+                        .split(" ")
+                        .map((part) => part[0])
+                        .join("")}
+                    </span>
+                    <div className="text-right">
+                      <p className="font-display text-4xl font-extrabold leading-none text-brand-gold">
+                        {person.years}
+                      </p>
+                      <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white/40">
+                        years in food
+                      </p>
+                    </div>
+                  </div>
+                  <h3 className="mt-6 font-display text-xl font-extrabold">{person.name}</h3>
+                  <p className="mt-1 text-xs font-bold uppercase tracking-[0.16em] text-brand-gold/80">
+                    {person.role}
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-white/65 sm:text-base">
+                    {person.description}
+                  </p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={0.16}>
+            <p className="mt-7 text-xs text-white/40">
+              Management experience as stated in the ZOORO corporate profile &amp; proposal 2026.
+            </p>
           </Reveal>
         </div>
       </section>
@@ -464,7 +562,7 @@ export default function AboutPage() {
       </section>
 
       {/* WHAT WE DO */}
-      <section className="relative overflow-clip bg-brand-ink py-20 text-white sm:py-24">
+      <section id="what-we-do" className="relative scroll-mt-24 overflow-clip bg-brand-ink py-20 text-white sm:py-24">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute -right-40 -top-24 h-[30rem] w-[30rem] rounded-full bg-brand-red/20 blur-3xl" />
           <div className="absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl" />
@@ -478,7 +576,7 @@ export default function AboutPage() {
                 What we do
               </p>
               <h2 className="mt-5 max-w-xl text-balance font-display text-3xl font-extrabold leading-[1.05] sm:text-5xl">
-                Five ways we show up for your team
+                Eight ways we show up for your team
               </h2>
               <p className="mt-5 max-w-xl text-base text-white/70 sm:text-lg">
                 From the daily canteen counter to the biggest festival on your calendar, one partner handles the
@@ -525,7 +623,7 @@ export default function AboutPage() {
       </section>
 
       {/* HOW WE WORK */}
-      <section className="mx-auto max-w-6xl px-6 py-20 sm:py-24">
+      <section id="how-we-work" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-20 sm:py-24">
         <div className="grid gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
           <Reveal>
             <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-brand-red">
@@ -568,6 +666,87 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* CLIENTS */}
+      <section id="clients" className="scroll-mt-24 bg-white py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end lg:gap-12">
+            <Reveal>
+              <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-brand-red">
+                <span className="h-px w-8 bg-brand-red" />
+                Our clients
+              </p>
+              <h2 className="mt-5 max-w-xl text-balance font-display text-3xl font-extrabold leading-[1.05] sm:text-5xl">
+                Trusted in kitchens across Pune
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1} className="lg:pb-2">
+              <p className="max-w-xl text-base text-brand-ink/60 sm:text-lg lg:ml-auto">
+                We are presently rendering catering services to these organisations — from
+                manufacturing campuses and IT parks to managed office spaces.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="mt-12">
+            <ClientLogoWall />
+          </div>
+        </div>
+      </section>
+
+      {/* BUSINESS STRUCTURE */}
+      <section id="business-structure" className="scroll-mt-24 bg-white pb-20 sm:pb-24">
+        <div className="mx-auto max-w-6xl px-6">
+          <Reveal>
+            <div className="overflow-hidden rounded-[2rem] bg-brand-cream ring-1 ring-brand-ink/10">
+              <div className="grid gap-8 p-7 sm:p-10 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:gap-14">
+                <div>
+                  <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-brand-red">
+                    <span className="h-px w-8 bg-brand-red" />
+                    Business structure
+                  </p>
+                  <h2 className="mt-4 max-w-xl text-balance font-display text-3xl font-extrabold leading-[1.05] sm:text-4xl">
+                    Built on experience. Moving forward as ZOORO.
+                  </h2>
+                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-brand-ink/65 sm:text-base">
+                    Our operations were previously carried out under Aura Foods &amp; Co. and
+                    Four Season Hospitality Services. These operations are intended to carry
+                    forward under ZOORO Hospitality Pvt. Ltd., subject to completion of applicable
+                    legal and statutory formalities.
+                  </p>
+                  <a
+                    href={contact.profilePdf}
+                    download
+                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand-ink px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-red"
+                  >
+                    Read the corporate profile
+                    <span aria-hidden="true">&darr;</span>
+                  </a>
+                </div>
+
+                <div className="space-y-3">
+                  {["Aura Foods & Co.", "Four Season Hospitality Services"].map((entity) => (
+                    <div
+                      key={entity}
+                      className="flex items-center justify-between gap-4 rounded-2xl bg-white px-5 py-4 ring-1 ring-brand-ink/10"
+                    >
+                      <span className="text-sm font-bold text-brand-ink/70">{entity}</span>
+                      <span className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-red">
+                        <span aria-hidden="true">&rarr;</span>
+                        ZOORO
+                      </span>
+                    </div>
+                  ))}
+                  <p className="px-2 pt-1 text-[11px] leading-relaxed text-brand-ink/45">
+                    The transition is subject to the completion of applicable legal and statutory
+                    formalities.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="relative overflow-clip bg-gradient-to-br from-brand-red to-brand-red-dark py-20 text-white">
         <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -599,14 +778,26 @@ export default function AboutPage() {
               Explore services
             </Link>
           </div>
-          <p className="mt-8 text-sm text-white/70">
-            <a
-              href="mailto:sagar@zoorohospitality.com"
-              className="font-semibold text-white hover:underline"
-            >
-              sagar@zoorohospitality.com
-            </a>
-          </p>
+          <div className="mt-8 space-y-2 text-sm text-white/70">
+            <p>
+              {contact.phones.map((phone, index) => (
+                <span key={phone.href}>
+                  <a href={phone.href} className="font-semibold text-white hover:underline">
+                    {phone.display}
+                  </a>
+                  {index === 0 ? " / " : ""}
+                </span>
+              ))}
+            </p>
+            <p>
+              <a
+                href={`mailto:${contact.email}`}
+                className="font-semibold text-white hover:underline"
+              >
+                {contact.email}
+              </a>
+            </p>
+          </div>
         </Reveal>
       </section>
     </div>

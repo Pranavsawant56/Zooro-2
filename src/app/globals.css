@@ -52,6 +52,17 @@ html {
   html {
     scroll-behavior: auto;
   }
+
+  /* Framer Motion writes the animated state as inline styles. Show the final
+     state immediately for visitors who prefer reduced motion, rather than
+     branching the render on the client and breaking hydration. */
+  .zooro-hero [style],
+  .zooro-emblem [style],
+  .zooro-tabpanel[style] {
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dasharray: none !important;
+  }
 }
 
 body {

@@ -10,6 +10,9 @@ const services = [
   "Festival & occasion meals",
   "Events & buffets",
   "Healthy meals",
+  "Food court",
+  "Weddings & bulk catering",
+  "Delivery kitchen",
   "Other corporate meals",
 ];
 

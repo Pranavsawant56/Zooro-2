@@ -3,11 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import ContactForm from "../components/ContactForm";
 import Reveal from "@/components/Reveal";
+import { contact } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Contact Us | ZOORO Hospitality",
+  title: "Contact Us",
   description:
-    "Get in touch with ZOORO Hospitality for corporate canteens, industrial catering, festival and occasion meals, events and healthy meals.",
+    "Get in touch with ZOORO Hospitality in Pune for corporate canteens, industrial catering, festival meals, events, healthy meals, food courts, weddings, bulk catering and delivery kitchen services. Call +91 97633 72666 or email sagar@zoorohospitality.com.",
 };
 
 const helpWith = [
@@ -16,6 +17,9 @@ const helpWith = [
   "Festival & occasion meals",
   "Events & buffets",
   "Healthy meals",
+  "Food court",
+  "Weddings & bulk catering",
+  "Delivery kitchen",
 ];
 
 const nextSteps = [
@@ -53,6 +57,23 @@ function IconMail({ className = "h-5 w-5" }: { className?: string }) {
     >
       <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="m3 7 9 6 9-6" />
+    </svg>
+  );
+}
+
+function IconPhone({ className = "h-5 w-5" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M6.5 3.5 9 3l1.8 4.2-2 1.4a13 13 0 0 0 6.6 6.6l1.4-2L21 15l-.5 2.5A2.5 2.5 0 0 1 18 19.5C10.5 19.5 4.5 13.5 4.5 6A2.5 2.5 0 0 1 6.5 3.5Z" />
     </svg>
   );
 }
@@ -173,7 +194,7 @@ export default function ContactPage() {
                   Start an enquiry
                 </a>
                 <a
-                  href="mailto:sagar@zoorohospitality.com"
+                  href={`mailto:${contact.email}`}
                   className="inline-block rounded-full border-2 border-brand-ink/80 px-7 py-3 text-center font-bold transition-colors hover:bg-brand-ink hover:text-white"
                 >
                   Email us
@@ -181,7 +202,21 @@ export default function ContactPage() {
               </div>
             </Reveal>
 
-            <Reveal delay={0.3}>
+            <Reveal delay={0.28}>
+              <p className="mt-4 text-sm font-semibold text-brand-ink/60">
+                Or call{" "}
+                {contact.phones.map((phone, index) => (
+                  <span key={phone.href}>
+                    <a href={phone.href} className="text-brand-red hover:underline">
+                      {phone.display}
+                    </a>
+                    {index === 0 ? " / " : ""}
+                  </span>
+                ))}
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.32}>
               <p className="mt-8 text-[11px] font-semibold uppercase tracking-[0.16em] text-brand-ink/45">
                 Pune-based &middot; Offices, plants and occasions
               </p>
@@ -206,7 +241,7 @@ export default function ContactPage() {
               </div>
 
               <a
-                href="mailto:sagar@zoorohospitality.com"
+                href={`mailto:${contact.email}`}
                 className="group absolute -bottom-2 left-4 right-4 z-10 flex items-center gap-3 rounded-2xl bg-white p-4 shadow-xl ring-1 ring-brand-ink/10 sm:-left-6 sm:right-auto sm:w-[330px] sm:p-5"
               >
                 <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-red/10 text-brand-red">
@@ -217,7 +252,7 @@ export default function ContactPage() {
                     Email us directly
                   </span>
                   <span className="mt-0.5 block truncate text-sm font-bold text-brand-ink group-hover:text-brand-red">
-                    sagar@zoorohospitality.com
+                    {contact.email}
                   </span>
                 </span>
                 <IconArrowUpRight className="ml-auto h-5 w-5 text-brand-ink/30 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -249,7 +284,7 @@ export default function ContactPage() {
           </div>
 
           <div className="mt-12 grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10">
-            <div className="order-2 grid gap-4 sm:grid-cols-2 lg:order-1 lg:grid-cols-1">
+            <div id="contact-cards" className="order-2 grid scroll-mt-24 gap-4 sm:grid-cols-2 lg:order-1 lg:grid-cols-1">
               <Reveal className="h-full">
                 <div className="h-full rounded-3xl bg-brand-red p-6 text-white shadow-lg shadow-brand-red/20 sm:p-7">
                   <div className="flex items-center gap-3">
@@ -259,10 +294,10 @@ export default function ContactPage() {
                     <h2 className="text-lg font-extrabold">Email</h2>
                   </div>
                   <a
-                    href="mailto:sagar@zoorohospitality.com"
+                    href={`mailto:${contact.email}`}
                     className="mt-5 block break-all font-display text-lg font-bold text-brand-gold hover:underline sm:text-xl"
                   >
-                    sagar@zoorohospitality.com
+                    {contact.email}
                   </a>
                   <p className="mt-2 text-sm text-white/70">
                     Best for menus, tenders and quotations.
@@ -271,6 +306,31 @@ export default function ContactPage() {
               </Reveal>
 
               <Reveal delay={0.06} className="h-full">
+                <div className="h-full rounded-3xl bg-brand-gold p-6 text-brand-ink shadow-sm ring-1 ring-brand-ink/10 sm:p-7">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/45">
+                      <IconPhone />
+                    </span>
+                    <h2 className="text-lg font-extrabold">Call us</h2>
+                  </div>
+                  <div className="mt-5 space-y-1.5">
+                    {contact.phones.map((phone) => (
+                      <a
+                        key={phone.href}
+                        href={phone.href}
+                        className="block font-display text-lg font-extrabold hover:underline sm:text-xl"
+                      >
+                        {phone.display}
+                      </a>
+                    ))}
+                  </div>
+                  <p className="mt-2 text-sm text-brand-ink/65">
+                    {contact.director}, Director. Best for urgent requirements and site visits.
+                  </p>
+                </div>
+              </Reveal>
+
+              <Reveal delay={0.12} className="h-full">
                 <div className="h-full rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brand-ink/10 sm:p-7">
                   <div className="flex items-center gap-3">
                     <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-gold/15 text-brand-ink">
@@ -279,11 +339,11 @@ export default function ContactPage() {
                     <h2 className="text-lg font-extrabold">Head office</h2>
                   </div>
                   <address className="mt-4 not-italic text-brand-ink/70">
-                    ZOORO Hospitality Pvt. Ltd.
+                    {contact.company}
                     <br />
-                    S.No. 52-3/1, Maruti Nagar, Lane No. 4,
+                    {contact.addressLines[0]}
                     <br />
-                    Wadgaonsheri, Pune 411014
+                    {contact.addressLines[1]}
                   </address>
                   <a
                     href={mapLink}
@@ -297,9 +357,9 @@ export default function ContactPage() {
                 </div>
               </Reveal>
 
-              <Reveal delay={0.12} className="h-full">
+              <Reveal delay={0.18} className="h-full">
                 <a
-                  href="https://www.zoorohospitality.com"
+                  href={contact.websiteHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex h-full items-center gap-4 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brand-ink/10 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-ink/5"
@@ -310,14 +370,14 @@ export default function ContactPage() {
                   <span className="min-w-0 flex-1">
                     <span className="block text-lg font-extrabold">Website</span>
                     <span className="mt-0.5 block truncate text-sm font-semibold text-brand-red">
-                      www.zoorohospitality.com
+                      {contact.website}
                     </span>
                   </span>
                   <IconArrowUpRight className="h-5 w-5 text-brand-ink/30 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
               </Reveal>
 
-              <Reveal delay={0.18} className="h-full">
+              <Reveal delay={0.24} className="h-full sm:col-span-2 lg:col-span-1">
                 <div className="h-full rounded-3xl bg-brand-ink p-6 text-white sm:p-7">
                   <div className="flex items-center gap-3">
                     <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-brand-gold">
@@ -355,11 +415,36 @@ export default function ContactPage() {
               <ContactForm />
             </Reveal>
           </div>
+
+          <Reveal delay={0.1}>
+            <div id="corporate-profile" className="mt-8 flex scroll-mt-24 flex-col gap-5 rounded-3xl bg-brand-cream p-6 ring-1 ring-brand-ink/10 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-brand-red">
+                  For procurement teams
+                </p>
+                <h3 className="mt-2 font-display text-xl font-extrabold sm:text-2xl">
+                  Corporate profile &amp; proposal 2026
+                </h3>
+                <p className="mt-1 max-w-xl text-sm text-brand-ink/60">
+                  Services, capacity, clients, cafeteria operating plan and business structure in one
+                  PDF.
+                </p>
+              </div>
+              <a
+                href={contact.profilePdf}
+                download
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-brand-ink px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-red"
+              >
+                Download PDF
+                <span aria-hidden="true">&darr;</span>
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* WHAT HAPPENS NEXT */}
-      <section className="relative overflow-clip bg-brand-ink py-20 text-white sm:py-24">
+      <section id="process" className="relative scroll-mt-24 overflow-clip bg-brand-ink py-20 text-white sm:py-24">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-red/25 blur-3xl" />
           <div className="absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-brand-gold/10 blur-3xl" />
@@ -398,15 +483,28 @@ export default function ContactPage() {
             </div>
 
             <Reveal delay={0.24}>
-              <p className="mt-8 text-sm text-white/55">
-                Prefer email?{" "}
-                <a
-                  href="mailto:sagar@zoorohospitality.com"
-                  className="font-semibold text-brand-gold hover:underline"
-                >
-                  sagar@zoorohospitality.com
-                </a>
-              </p>
+              <div className="mt-8 space-y-2 text-sm text-white/55">
+                <p>
+                  Prefer to talk?{" "}
+                  {contact.phones.map((phone, index) => (
+                    <span key={phone.href}>
+                      <a href={phone.href} className="font-semibold text-brand-gold hover:underline">
+                        {phone.display}
+                      </a>
+                      {index === 0 ? " / " : ""}
+                    </span>
+                  ))}
+                </p>
+                <p>
+                  Prefer email?{" "}
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="font-semibold text-brand-gold hover:underline"
+                  >
+                    {contact.email}
+                  </a>
+                </p>
+              </div>
             </Reveal>
           </div>
 

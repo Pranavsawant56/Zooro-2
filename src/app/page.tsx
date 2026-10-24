@@ -12,6 +12,8 @@ import {
 } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import Spinner from "@/components/Spinner";
+import { ClientLogoMarquee } from "./components/ClientLogos";
+import { additionalServices, contact } from "@/lib/site";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -62,6 +64,9 @@ const ticker = [
   "Diwali menus",
   "Events & buffets",
   "Healthy meals",
+  "Food court",
+  "Weddings & bulk catering",
+  "Delivery kitchen",
   "Eid & Christmas lunches",
   "Annual day catering",
   "Pongal & Sankranti thali",
@@ -127,20 +132,16 @@ const serviceCards = [
 
 /* Hero emblem: a plate ring, the gold-to-red Z, a leaf, fork and spoon */
 function Emblem() {
-  const reduce = useReducedMotion();
-  const draw = (delay: number) =>
-    reduce
-      ? {}
-      : {
-          initial: { pathLength: 0, opacity: 0 },
-          animate: { pathLength: 1, opacity: 1 },
-          transition: { duration: 1.4, delay, ease },
-        };
+  const draw = (delay: number) => ({
+    initial: { pathLength: 0, opacity: 0 },
+    animate: { pathLength: 1, opacity: 1 },
+    transition: { duration: 1.4, delay, ease },
+  });
 
   return (
     <motion.div
-      className="relative mx-auto aspect-square w-full max-w-[460px]"
-      animate={reduce ? undefined : { y: [0, -12, 0] }}
+      className="zooro-emblem relative mx-auto aspect-square w-full max-w-[460px]"
+      animate={{ y: [0, -12, 0] }}
       transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
     >
       <svg viewBox="0 0 400 400" className="h-full w-full" role="img" aria-label="ZOORO emblem">
@@ -177,7 +178,7 @@ function Emblem() {
         <motion.path
           d="M268 78 C318 72 340 104 334 140 C292 142 262 118 268 78 Z"
           fill="url(#lg)"
-          initial={reduce ? false : { scale: 0, rotate: -30 }}
+          initial={{ scale: 0, rotate: -30 }}
           animate={{ scale: 1, rotate: 0 }}
           style={{ transformOrigin: "268px 140px" }}
           transition={{ duration: 0.9, delay: 1.7, ease }}
@@ -282,16 +283,16 @@ function EnquiryForm() {
     <form onSubmit={onSubmit} noValidate className="w-full min-w-0 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-brand-ink/10 sm:p-6">
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="text-sm font-semibold text-brand-ink">Your name
-          <input name="name" autoComplete="name" className={field} />
+          <input name="name" autoComplete="name" required aria-required="true" className={field} />
         </label>
         <label className="text-sm font-semibold text-brand-ink">Company
           <input name="company" autoComplete="organization" className={field} />
         </label>
         <label className="text-sm font-semibold text-brand-ink">Phone
-          <input name="phone" type="tel" autoComplete="tel" className={field} />
+          <input name="phone" type="tel" autoComplete="tel" required aria-required="true" className={field} />
         </label>
         <label className="text-sm font-semibold text-brand-ink">Email
-          <input name="email" type="email" autoComplete="email" className={field} />
+          <input name="email" type="email" autoComplete="email" required aria-required="true" className={field} />
         </label>
       </div>
       <label className="mt-3 block text-sm font-semibold text-brand-ink">What do you need?
@@ -301,6 +302,9 @@ function EnquiryForm() {
           <option>Festival & occasion meals</option>
           <option>Events & buffets</option>
           <option>Healthy meals</option>
+          <option>Food court</option>
+          <option>Weddings & bulk catering</option>
+          <option>Delivery kitchen</option>
         </select>
       </label>
       <label className="mt-3 block text-sm font-semibold text-brand-ink">Message
@@ -309,12 +313,12 @@ function EnquiryForm() {
 
       <AnimatePresence mode="wait">
         {error && (
-          <motion.p key="e" initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mt-3 text-sm font-medium text-brand-red">
+          <motion.p key="e" role="alert" initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="mt-3 text-sm font-medium text-brand-red">
             {error}
           </motion.p>
         )}
         {sent && !error && (
-          <motion.p key="s" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="mt-3 rounded-xl bg-brand-leaf/10 p-3 text-sm font-medium text-brand-leaf">
+          <motion.p key="s" role="status" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="mt-3 rounded-xl bg-brand-leaf/10 p-3 text-sm font-medium text-brand-leaf">
             Thanks! We&apos;ve received your enquiry and will get back to you soon.
           </motion.p>
         )}
@@ -323,6 +327,7 @@ function EnquiryForm() {
       <motion.button
         type="submit"
         disabled={loading}
+        aria-busy={loading}
         whileHover={loading ? undefined : { scale: 1.02 }}
         whileTap={loading ? undefined : { scale: 0.97 }}
         className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-brand-red px-6 py-3 font-bold text-white transition-colors hover:bg-brand-red-dark disabled:cursor-not-allowed disabled:opacity-70"
@@ -337,14 +342,13 @@ function EnquiryForm() {
 /* ---------- page ---------- */
 
 export default function Home() {
-  const reduce = useReducedMotion();
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const emblemY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 90]);
-  const blobY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -120]);
+  const emblemY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const blobY = useTransform(scrollYProgress, [0, 1], [0, -120]);
 
   const line = (delay: number) => ({
-    initial: reduce ? false : { opacity: 0, y: 40 },
+    initial: { opacity: 0, y: 40 },
     animate: { opacity: 1, y: 0 },
     transition: { duration: 0.9, delay, ease },
   } as const);
@@ -352,7 +356,7 @@ export default function Home() {
   return (
     <div className="bg-brand-cream text-brand-ink">
       {/* HERO */}
-      <section ref={heroRef} className="relative isolate overflow-hidden">
+      <section ref={heroRef} className="zooro-hero relative isolate overflow-hidden">
         <motion.div style={{ y: blobY }} aria-hidden className="pointer-events-none absolute inset-0 -z-10">
           <div className="absolute -left-24 top-10 h-80 w-80 rounded-full bg-brand-gold/30 blur-3xl" />
           <div className="absolute right-0 top-0 h-96 w-96 rounded-full bg-brand-red/15 blur-3xl" />
@@ -363,7 +367,7 @@ export default function Home() {
           <div>
             <motion.p {...line(0)} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-sm font-semibold text-brand-red shadow-sm">
               <span className="h-2 w-2 rounded-full bg-brand-leaf" />
-              Corporate canteens, industrial catering and events
+              Corporate canteens, industrial catering, food courts and events
             </motion.p>
 
             <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
@@ -399,8 +403,38 @@ export default function Home() {
 
       <Marquee />
 
+      {/* CLIENTS */}
+      <section id="clients" className="scroll-mt-24 border-b border-brand-ink/10 bg-white py-14 sm:py-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-brand-red">
+                <span className="h-px w-8 bg-brand-red" />
+                Trusted by
+              </p>
+              <h2 className="mt-4 max-w-xl text-balance font-display text-2xl font-extrabold leading-tight sm:text-3xl">
+                Teams across Pune
+              </h2>
+              <p className="mt-2 max-w-xl text-sm text-brand-ink/55 sm:text-base">
+                From manufacturing campuses and IT parks to managed office spaces.
+              </p>
+            </div>
+            <Link
+              href="/about#clients"
+              className="group inline-flex items-center gap-2 text-sm font-bold text-brand-red transition-colors hover:text-brand-red-dark"
+            >
+              See all clients
+              <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+                &rarr;
+              </span>
+            </Link>
+          </div>
+          <ClientLogoMarquee />
+        </div>
+      </section>
+
       {/* SERVICES */}
-      <section className="mx-auto max-w-6xl px-6 py-24">
+      <section id="services" className="mx-auto max-w-6xl scroll-mt-24 px-6 py-24">
         <Reveal>
           <h2 className="max-w-2xl font-display text-3xl font-extrabold sm:text-5xl">
             One kitchen partner for every kind of meal
@@ -467,10 +501,33 @@ export default function Home() {
             </Reveal>
           ))}
         </div>
+
+        <div className="mt-6 grid gap-3 sm:grid-cols-3">
+          {additionalServices.map((service) => (
+            <Link
+              key={service.title}
+              href="/services"
+              className="group rounded-2xl bg-white p-5 ring-1 ring-brand-ink/10 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-ink/5"
+            >
+              <p className="font-display text-base font-extrabold text-brand-ink group-hover:text-brand-red">
+                {service.title}
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-brand-ink/60">
+                {service.description}
+              </p>
+              <span className="mt-3 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.14em] text-brand-red">
+                Explore
+                <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">
+                  &rarr;
+                </span>
+              </span>
+            </Link>
+          ))}
+        </div>
       </section>
 
       {/* FESTIVALS AND OCCASIONS */}
-      <section className="relative overflow-clip bg-brand-ink py-20 text-white sm:py-24">
+      <section id="festivals" className="relative scroll-mt-24 overflow-clip bg-brand-ink py-20 text-white sm:py-24">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="absolute -right-40 -top-24 h-[30rem] w-[30rem] rounded-full bg-brand-red/20 blur-3xl" />
           <div className="absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl" />
@@ -487,7 +544,7 @@ export default function Home() {
                 Festival and occasion meals for your company
               </h2>
               <p className="mt-5 max-w-xl text-base text-white/70 sm:text-lg">
-                From a festive thali for 50 to a buffet for thousands, we plan the menu, cook, serve and clean up.
+                From a festive thali for 50 to a buffet for 1,000+, we plan the menu, cook, serve and clean up.
                 Any corporate meal, any occasion.
               </p>
 
@@ -558,7 +615,7 @@ export default function Home() {
 
                   <div className="mt-6 grid grid-cols-2 gap-4 border-t border-white/15 pt-5">
                     <div>
-                      <p className="font-display text-2xl font-extrabold">50–5,000</p>
+                      <p className="font-display text-2xl font-extrabold">50–1,000+</p>
                       <p className="text-xs text-white/55">guests per event</p>
                     </div>
                     <div>
@@ -708,11 +765,32 @@ export default function Home() {
               Tell us about your team or your occasion and we will reply with a menu and quotation.
             </p>
             <p className="mt-6 text-sm leading-relaxed text-brand-ink/70 sm:text-base">
-              ZOORO Hospitality Pvt. Ltd.<br />
-              S.No. 52-3/1, Maruti Nagar, Lane No. 4,<br />
-              Wadgaonsheri, Pune 411014<br />
-              <a href="mailto:sagar@zoorohospitality.com" className="font-semibold text-brand-red hover:underline">sagar@zoorohospitality.com</a>
+              {contact.company}<br />
+              {contact.addressLines[0]}<br />
+              {contact.addressLines[1]}<br />
+              {contact.phones.map((phone, index) => (
+                <span key={phone.href}>
+                  <a href={phone.href} className="font-semibold text-brand-red hover:underline">
+                    {phone.display}
+                  </a>
+                  {index === 0 ? " / " : ""}
+                </span>
+              ))}
+              <br />
+              <a href={`mailto:${contact.email}`} className="font-semibold text-brand-red hover:underline">
+                {contact.email}
+              </a>
             </p>
+            <a
+              href={contact.profilePdf}
+              download
+              className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand-red transition-colors hover:text-brand-red-dark"
+            >
+              Download corporate profile &amp; proposal
+              <span aria-hidden="true" className="rounded-full bg-brand-red/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em]">
+                PDF
+              </span>
+            </a>
           </Reveal>
           <Reveal delay={0.1} className="min-w-0">
             <EnquiryForm />

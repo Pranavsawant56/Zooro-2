@@ -37,6 +37,7 @@ export default function Header() {
             alt="ZOORO Catering & Meal Services"
             width={1240}
             height={496}
+            loading="eager"
             className="h-14 w-auto transition-transform duration-300 group-hover:scale-[1.03]"
           />
         </Link>
