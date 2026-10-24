@@ -12,7 +12,6 @@ export const contact = {
   website: "www.zoorohospitality.com",
   websiteHref: "https://www.zoorohospitality.com",
   director: "Sagar Pattanshetty",
-  profilePdf: "/zooro-corporate-profile-2026.pdf",
 };
 
 export type Client = {

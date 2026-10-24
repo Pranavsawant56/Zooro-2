@@ -880,16 +880,6 @@ export default function ServicesContent() {
                 {contact.email}
               </a>
             </p>
-            <p>
-              <a
-                href={contact.profilePdf}
-                download
-                className="inline-flex items-center gap-2 font-semibold text-brand-gold hover:text-white"
-              >
-                Download corporate profile &amp; proposal
-                <span aria-hidden="true">&darr;</span>
-              </a>
-            </p>
           </div>
         </Reveal>
       </section>

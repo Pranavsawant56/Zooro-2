@@ -781,16 +781,6 @@ export default function Home() {
                 {contact.email}
               </a>
             </p>
-            <a
-              href={contact.profilePdf}
-              download
-              className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand-red transition-colors hover:text-brand-red-dark"
-            >
-              Download corporate profile &amp; proposal
-              <span aria-hidden="true" className="rounded-full bg-brand-red/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em]">
-                PDF
-              </span>
-            </a>
           </Reveal>
           <Reveal delay={0.1} className="min-w-0">
             <EnquiryForm />

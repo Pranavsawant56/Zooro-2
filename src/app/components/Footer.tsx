@@ -47,14 +47,6 @@ export default function Footer() {
           <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-white/40">
             Trusted by 11 organisations across Pune
           </p>
-          <a
-            href={contact.profilePdf}
-            download
-            className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-xs font-bold text-white/80 transition-colors hover:border-brand-gold/60 hover:text-brand-gold"
-          >
-            Corporate profile &amp; proposal
-            <span aria-hidden="true">&darr;</span>
-          </a>
         </div>
 
         <div>

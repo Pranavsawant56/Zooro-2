@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import { ClientLogoWall } from "../components/ClientLogos";
-import { contact, factSheet, management } from "@/lib/site";
+import { clients, contact, factSheet, management } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -219,19 +219,6 @@ export default function AboutPage() {
               </div>
             </Reveal>
 
-            <Reveal delay={0.3}>
-              <a
-                href={contact.profilePdf}
-                download
-                className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand-red transition-colors hover:text-brand-red-dark"
-              >
-                Download corporate profile &amp; proposal
-                <span className="rounded-full bg-brand-red/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em]">
-                  PDF
-                </span>
-              </a>
-            </Reveal>
-
             <Reveal delay={0.34}>
               <p className="mt-8 text-xs font-semibold uppercase tracking-[0.16em] text-brand-ink/45">
                 Pune-based &middot; Corporate &amp; industrial catering
@@ -420,7 +407,7 @@ export default function AboutPage() {
 
           <Reveal delay={0.16}>
             <p className="mt-7 text-xs text-white/40">
-              Management experience as stated in the ZOORO corporate profile &amp; proposal 2026.
+              Management experience across the ZOORO team.
             </p>
           </Reveal>
         </div>
@@ -667,23 +654,39 @@ export default function AboutPage() {
       </section>
 
       {/* CLIENTS */}
-      <section id="clients" className="scroll-mt-24 bg-white py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-end lg:gap-12">
+      <section
+        id="clients"
+        className="relative scroll-mt-24 overflow-clip bg-brand-ink py-20 text-white sm:py-24"
+      >
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div className="absolute -right-32 -top-28 h-[28rem] w-[28rem] rounded-full bg-brand-red/20 blur-3xl" />
+          <div className="absolute -bottom-32 -left-28 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl" />
+        </div>
+
+        <div className="relative mx-auto max-w-6xl px-6">
+          <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-end lg:gap-16">
             <Reveal>
-              <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-brand-red">
-                <span className="h-px w-8 bg-brand-red" />
+              <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.28em] text-brand-gold">
+                <span className="h-px w-8 bg-brand-gold" />
                 Our clients
               </p>
-              <h2 className="mt-5 max-w-xl text-balance font-display text-3xl font-extrabold leading-[1.05] sm:text-5xl">
-                Trusted in kitchens across Pune
+              <h2 className="mt-5 max-w-2xl text-balance font-display text-3xl font-extrabold leading-[1.05] sm:text-5xl">
+                Trusted in <span className="text-brand-gold">kitchens</span> across Pune
               </h2>
             </Reveal>
-            <Reveal delay={0.1} className="lg:pb-2">
-              <p className="max-w-xl text-base text-brand-ink/60 sm:text-lg lg:ml-auto">
+            <Reveal delay={0.1}>
+              <p className="max-w-xl text-base text-white/65 sm:text-lg">
                 We are presently rendering catering services to these organisations — from
                 manufacturing campuses and IT parks to managed office spaces.
               </p>
+              <div className="mt-6 flex flex-wrap gap-2.5">
+                <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-bold text-white/75">
+                  {clients.length} client organisations
+                </span>
+                <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-bold text-white/75">
+                  Kirloskarwadi &middot; Shirwal &middot; Pune
+                </span>
+              </div>
             </Reveal>
           </div>
 
@@ -694,7 +697,7 @@ export default function AboutPage() {
       </section>
 
       {/* BUSINESS STRUCTURE */}
-      <section id="business-structure" className="scroll-mt-24 bg-white pb-20 sm:pb-24">
+      <section id="business-structure" className="scroll-mt-24 bg-white py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <Reveal>
             <div className="overflow-hidden rounded-[2rem] bg-brand-cream ring-1 ring-brand-ink/10">
@@ -713,14 +716,6 @@ export default function AboutPage() {
                     forward under ZOORO Hospitality Pvt. Ltd., subject to completion of applicable
                     legal and statutory formalities.
                   </p>
-                  <a
-                    href={contact.profilePdf}
-                    download
-                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand-ink px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-red"
-                  >
-                    Read the corporate profile
-                    <span aria-hidden="true">&darr;</span>
-                  </a>
                 </div>
 
                 <div className="space-y-3">

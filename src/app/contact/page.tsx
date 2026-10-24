@@ -415,31 +415,6 @@ export default function ContactPage() {
               <ContactForm />
             </Reveal>
           </div>
-
-          <Reveal delay={0.1}>
-            <div id="corporate-profile" className="mt-8 flex scroll-mt-24 flex-col gap-5 rounded-3xl bg-brand-cream p-6 ring-1 ring-brand-ink/10 sm:flex-row sm:items-center sm:justify-between sm:p-7">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-brand-red">
-                  For procurement teams
-                </p>
-                <h3 className="mt-2 font-display text-xl font-extrabold sm:text-2xl">
-                  Corporate profile &amp; proposal 2026
-                </h3>
-                <p className="mt-1 max-w-xl text-sm text-brand-ink/60">
-                  Services, capacity, clients, cafeteria operating plan and business structure in one
-                  PDF.
-                </p>
-              </div>
-              <a
-                href={contact.profilePdf}
-                download
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-brand-ink px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-brand-red"
-              >
-                Download PDF
-                <span aria-hidden="true">&darr;</span>
-              </a>
-            </div>
-          </Reveal>
         </div>
       </section>
 
