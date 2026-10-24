@@ -33,7 +33,7 @@ export default function Header() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
         <Link href="/" className="group flex items-center gap-3" aria-label="ZOORO Hospitality home">
           <Image
-            src="/web-logo.JPEG"
+            src="/web-logo-client.jpeg"
             alt="ZOORO Catering & Meal Services"
             width={1240}
             height={496}
