@@ -139,7 +139,7 @@ export const operatingPlan = [
     title: "Food court",
     description:
       "Additional choices beyond the regular meal menu. Selected items are separately priced and available directly from the relevant counter.",
-    tint: "bg-brand-leaf/10 text-brand-leaf",
+    tint: "bg-brand-leaf/10 text-brand-leaf-dark",
   },
   {
     title: "All-day café menu",

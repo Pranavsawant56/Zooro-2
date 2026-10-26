@@ -295,7 +295,7 @@ export default function ContactPage() {
                   </div>
                   <a
                     href={`mailto:${contact.email}`}
-                    className="mt-5 block break-all font-display text-lg font-bold text-brand-gold hover:underline sm:text-xl"
+                    className="mt-5 block break-all font-display text-lg font-bold text-white hover:underline sm:text-xl"
                   >
                     {contact.email}
                   </a>
@@ -364,7 +364,7 @@ export default function ContactPage() {
                   rel="noopener noreferrer"
                   className="group flex h-full items-center gap-4 rounded-3xl bg-white p-6 shadow-sm ring-1 ring-brand-ink/10 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-ink/5"
                 >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-leaf/10 text-brand-leaf">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-brand-leaf/10 text-brand-leaf-dark">
                     <IconGlobe />
                   </span>
                   <span className="min-w-0 flex-1">
@@ -394,7 +394,7 @@ export default function ContactPage() {
                             ? "bg-brand-red text-white"
                             : i % 3 === 1
                               ? "bg-brand-gold text-brand-ink"
-                              : "bg-brand-leaf text-white"
+                              : "bg-brand-leaf text-brand-ink"
                         }`}
                       >
                         {h}

@@ -90,8 +90,8 @@ const steps = [
 
 const why = [
   { c: "bg-brand-red", tint: "bg-brand-red/10 text-brand-red", icon: IconShield, t: "Hygiene first", d: "Daily checklists, temperature logs, food sample retention and FSSAI-ready kitchens." },
-  { c: "bg-brand-gold", tint: "bg-brand-gold/15 text-brand-gold", icon: IconTrend, t: "Cooked to real demand", d: "Employees pre-book or opt out, so we cook what is needed and waste less." },
-  { c: "bg-brand-leaf", tint: "bg-brand-leaf/10 text-brand-leaf", icon: IconLeaf, t: "Healthy by design", d: "Every dish has a recipe, calories and allergen tags." },
+  { c: "bg-brand-gold", tint: "bg-brand-gold/15 text-brand-red", icon: IconTrend, t: "Cooked to real demand", d: "Employees pre-book or opt out, so we cook what is needed and waste less." },
+  { c: "bg-brand-leaf", tint: "bg-brand-leaf/10 text-brand-leaf-dark", icon: IconLeaf, t: "Healthy by design", d: "Every dish has a recipe, calories and allergen tags." },
   { c: "bg-brand-ink", tint: "bg-brand-ink/5 text-brand-ink", icon: IconReceipt, t: "Clear billing", d: "Monthly GST invoices built from meals actually served, with date-wise counts." },
 ];
 
@@ -130,8 +130,8 @@ const serviceCards = [
 
 /* ---------- helpers ---------- */
 
-/* Hero emblem: a plate ring, the gold-to-red Z, a leaf, fork and spoon */
-function Emblem() {
+/* Hero logo: the real ZOORO lockup inside an animated plate */
+function HeroLogo() {
   const draw = (delay: number) => ({
     initial: { pathLength: 0, opacity: 0 },
     animate: { pathLength: 1, opacity: 1 },
@@ -140,51 +140,48 @@ function Emblem() {
 
   return (
     <motion.div
-      className="zooro-emblem relative mx-auto aspect-square w-full max-w-[460px]"
-      animate={{ y: [0, -12, 0] }}
+      className="zooro-emblem relative mx-auto aspect-square w-full max-w-[500px]"
+      animate={{ y: [0, -10, 0] }}
       transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
     >
-      <svg viewBox="0 0 400 400" className="h-full w-full" role="img" aria-label="ZOORO emblem">
-        <defs>
-          <linearGradient id="zg" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="var(--brand-gold)" />
-            <stop offset="0.55" stopColor="var(--brand-red-light)" />
-            <stop offset="1" stopColor="var(--brand-red-dark)" />
-          </linearGradient>
-          <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="var(--brand-leaf-light)" />
-            <stop offset="1" stopColor="var(--brand-leaf-dark)" />
-          </linearGradient>
-        </defs>
+      <div aria-hidden className="absolute inset-[10%] rounded-full bg-brand-gold/15 blur-3xl" />
 
-        <circle cx="200" cy="200" r="178" fill="#fff" />
-        <motion.circle cx="200" cy="200" r="178" fill="none" stroke="var(--brand-red)" strokeWidth="10" strokeLinecap="round" strokeDasharray="1 0" {...draw(0.1)} />
-        <motion.circle cx="200" cy="200" r="150" fill="none" stroke="var(--brand-gold)" strokeWidth="5" strokeLinecap="round" {...draw(0.4)} />
+      <motion.div
+        aria-hidden
+        className="absolute inset-[3%] rounded-full bg-white shadow-2xl shadow-brand-ink/10 ring-1 ring-brand-ink/5"
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.9, delay: 0.15, ease }}
+      />
 
-        {/* Z */}
-        <motion.path d="M118 130 H270 L130 270 H282" fill="none" stroke="url(#zg)" strokeWidth="34" strokeLinecap="round" strokeLinejoin="round" {...draw(0.7)} />
-
-        {/* fork */}
-        <motion.g stroke="var(--brand-gold)" strokeWidth="6" strokeLinecap="round" fill="none" {...draw(1.3)}>
-          <path d="M92 250 V210 M102 250 V210 M112 250 V210 M92 250 Q102 262 112 250 M102 262 V318" />
-        </motion.g>
-        {/* spoon */}
-        <motion.g {...draw(1.4)} stroke="var(--brand-red)" strokeWidth="6" strokeLinecap="round" fill="none">
-          <ellipse cx="300" cy="218" rx="13" ry="20" />
-          <path d="M300 238 V318" />
-        </motion.g>
-
-        {/* leaf */}
-        <motion.path
-          d="M268 78 C318 72 340 104 334 140 C292 142 262 118 268 78 Z"
-          fill="url(#lg)"
-          initial={{ scale: 0, rotate: -30 }}
-          animate={{ scale: 1, rotate: 0 }}
-          style={{ transformOrigin: "268px 140px" }}
-          transition={{ duration: 0.9, delay: 1.7, ease }}
-        />
-        <path d="M274 130 C292 112 308 100 326 92" stroke="var(--brand-leaf-mist)" strokeWidth="3" fill="none" strokeLinecap="round" />
+      <svg viewBox="0 0 400 400" className="absolute inset-0 h-full w-full" aria-hidden="true">
+        <motion.circle cx="200" cy="200" r="188" fill="none" stroke="var(--brand-red)" strokeWidth="10" strokeLinecap="round" {...draw(0.1)} />
+        <motion.circle cx="200" cy="200" r="166" fill="none" stroke="var(--brand-gold)" strokeWidth="5" strokeLinecap="round" {...draw(0.35)} />
       </svg>
+
+      <div className="absolute inset-0 flex items-center justify-center px-[10%]">
+        <motion.div
+          className="relative w-full overflow-hidden"
+          initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0 }}
+          animate={{ clipPath: "inset(0 0% 0 0)", opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.75, ease }}
+        >
+          <motion.div
+            initial={{ scale: 1.04 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.4, delay: 0.75, ease }}
+          >
+            <Image
+              src="/zooro-logo-transparent.png"
+              alt="ZOORO Catering & Meal Services"
+              width={1200}
+              height={365}
+              priority
+              className="h-auto w-full"
+            />
+          </motion.div>
+        </motion.div>
+      </div>
     </motion.div>
   );
 }
@@ -318,7 +315,7 @@ function EnquiryForm() {
           </motion.p>
         )}
         {sent && !error && (
-          <motion.p key="s" role="status" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="mt-3 rounded-xl bg-brand-leaf/10 p-3 text-sm font-medium text-brand-leaf">
+          <motion.p key="s" role="status" initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="mt-3 rounded-xl bg-brand-leaf/10 p-3 text-sm font-medium text-brand-leaf-dark">
             Thanks! We&apos;ve received your enquiry and will get back to you soon.
           </motion.p>
         )}
@@ -344,7 +341,7 @@ function EnquiryForm() {
 export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const emblemY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const logoY = useTransform(scrollYProgress, [0, 1], [0, 90]);
   const blobY = useTransform(scrollYProgress, [0, 1], [0, -120]);
 
   const line = (delay: number) => ({
@@ -395,8 +392,8 @@ export default function Home() {
             </motion.div>
           </div>
 
-          <motion.div style={{ y: emblemY }}>
-            <Emblem />
+          <motion.div style={{ y: logoY }}>
+            <HeroLogo />
           </motion.div>
         </div>
       </section>
@@ -580,7 +577,7 @@ export default function Home() {
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <Link
                   href="/contact"
-                  className="group inline-flex items-center gap-2 rounded-full bg-brand-red px-7 py-3.5 font-bold text-white shadow-lg shadow-brand-red/20 transition-colors hover:bg-brand-red-light"
+                  className="group inline-flex items-center gap-2 rounded-full bg-brand-red px-7 py-3.5 font-bold text-white shadow-lg shadow-brand-red/20 transition-colors hover:bg-brand-red-dark"
                 >
                   Plan your occasion
                   <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>

@@ -157,7 +157,7 @@ export default function ContactForm() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            className="mt-4 rounded-xl bg-brand-leaf/10 p-3 text-sm font-medium text-brand-leaf"
+            className="mt-4 rounded-xl bg-brand-leaf/10 p-3 text-sm font-medium text-brand-leaf-dark"
           >
             Thanks! We&apos;ve received your enquiry and will get back to you soon.
           </motion.p>

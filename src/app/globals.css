@@ -8,14 +8,17 @@
    Use in CSS/SVG:  var(--brand-red), var(--brand-cream) …
 ------------------------------------------------------------------ */
 :root {
-  --brand-red: #b3121b;
-  --brand-red-dark: #8e0e15;
-  --brand-red-light: #d8322a;
-  --brand-gold: #f0a81c;
-  --brand-leaf: #3f8f3c;
-  --brand-leaf-light: #6db544;
-  --brand-leaf-dark: #2c7a33;
-  --brand-leaf-mist: #e8f5e0;
+  /* Sampled from the ZOORO logo: orange #ff6201, green #5e9e23.
+     Token names are kept for compatibility: `red` is the deep logo orange,
+     `gold` is the bright logo orange, and `leaf` is the logo green. */
+  --brand-red: #c24c00;
+  --brand-red-dark: #9e3d00;
+  --brand-red-light: #ff6201;
+  --brand-gold: #ff6201;
+  --brand-leaf: #5e9e23;
+  --brand-leaf-light: #7cbf3f;
+  --brand-leaf-dark: #467a18;
+  --brand-leaf-mist: #eef7e4;
   --brand-ink: #1b1b1b;
   --brand-cream: #fff8ec;
 
@@ -62,6 +65,10 @@ html {
     opacity: 1 !important;
     transform: none !important;
     stroke-dasharray: none !important;
+  }
+
+  .zooro-emblem [style] {
+    clip-path: none !important;
   }
 }
 

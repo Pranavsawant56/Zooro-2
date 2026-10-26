@@ -172,7 +172,7 @@ const services = [
       "Any corporate meal requirement, big or small",
     ],
     tags: ["Festival menus", "Annual days", "Any occasion"],
-    tint: "bg-brand-gold/15 text-brand-gold",
+    tint: "bg-brand-gold/15 text-brand-red",
     bar: "bg-brand-gold",
     chip: "bg-brand-gold/15 text-brand-ink",
   },
@@ -220,9 +220,9 @@ const services = [
       "Recipes standardised across sites for consistent quality",
     ],
     tags: ["Nutrition info", "Allergen tags", "Subscriptions"],
-    tint: "bg-brand-leaf/10 text-brand-leaf",
+    tint: "bg-brand-leaf/10 text-brand-leaf-dark",
     bar: "bg-brand-leaf",
-    chip: "bg-brand-leaf/10 text-brand-leaf",
+    chip: "bg-brand-leaf/10 text-brand-leaf-dark",
   },
   {
     id: "food-court",
@@ -304,7 +304,7 @@ const standards = [
     description:
       "Healthy, home-style food with great taste. Menus span Maharashtrian, Coastal, Contemporary Indian, Pan-Asian, Fusion and New World options.",
     icon: IconLeaf,
-    tint: "bg-brand-leaf/10 text-brand-leaf",
+    tint: "bg-brand-leaf/10 text-brand-leaf-dark",
     bar: "bg-brand-leaf",
   },
   {
@@ -320,7 +320,7 @@ const standards = [
     description:
       "Appetising, health-conscious meals made with nutrient-rich ingredients and careful hygiene, from ingredient selection to final presentation.",
     icon: IconSparkle,
-    tint: "bg-brand-gold/15 text-brand-gold",
+    tint: "bg-brand-gold/15 text-brand-red",
     bar: "bg-brand-gold",
   },
   {

@@ -92,7 +92,7 @@ const pillars = [
     description:
       "Workplaces where a good meal is something people look forward to every day.",
     icon: IconEye,
-    tint: "bg-brand-gold/15 text-brand-gold",
+    tint: "bg-brand-gold/15 text-brand-red",
     bar: "bg-brand-gold",
   },
   {
@@ -100,7 +100,7 @@ const pillars = [
     description:
       "Hygiene, honesty and care for people, in the kitchen, at the counter and on every invoice.",
     icon: IconHeart,
-    tint: "bg-brand-leaf/10 text-brand-leaf",
+    tint: "bg-brand-leaf/10 text-brand-leaf-dark",
     bar: "bg-brand-leaf",
   },
 ];
@@ -151,13 +151,13 @@ const approach = [
     t: "We keep kitchens audit-ready",
     d: "Daily hygiene checklists, temperature logs, food sample records and licence tracking.",
     icon: IconShield,
-    tint: "bg-brand-gold/15 text-brand-gold",
+    tint: "bg-brand-gold/15 text-brand-red",
   },
   {
     t: "We standardise quality",
     d: "Every dish follows a recipe, so the food tastes the same at every site.",
     icon: IconCheckCircle,
-    tint: "bg-brand-leaf/10 text-brand-leaf",
+    tint: "bg-brand-leaf/10 text-brand-leaf-dark",
   },
   {
     t: "We bill transparently",
@@ -572,7 +572,7 @@ export default function AboutPage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/services"
-                  className="group inline-flex items-center gap-2 rounded-full bg-brand-red px-7 py-3.5 font-bold text-white shadow-lg shadow-brand-red/20 transition-colors hover:bg-brand-red-light"
+                  className="group inline-flex items-center gap-2 rounded-full bg-brand-red px-7 py-3.5 font-bold text-white shadow-lg shadow-brand-red/20 transition-colors hover:bg-brand-red-dark"
                 >
                   Explore services
                   <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>

@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "delivery kitchen",
   ],
   icons: {
-    icon: "/website-fvcon.png",
+    icon: "/icon.svg",
   },
 };
 
