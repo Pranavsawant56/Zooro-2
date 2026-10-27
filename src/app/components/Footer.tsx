@@ -34,7 +34,7 @@ export default function Footer() {
       <div className="flex h-1.5">
         <span className="flex-1 bg-brand-red" />
         <span className="flex-1 bg-brand-gold" />
-        <span className="flex-1 bg-brand-leaf" />
+        <span className="flex-1 bg-brand-red-dark" />
       </div>
 
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-2 lg:grid-cols-4">

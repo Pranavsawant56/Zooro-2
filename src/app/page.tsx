@@ -172,10 +172,10 @@ function HeroLogo() {
             transition={{ duration: 1.4, delay: 0.75, ease }}
           >
             <Image
-              src="/zooro-logo-transparent.png"
-              alt="ZOORO Catering & Meal Services"
-              width={1200}
-              height={365}
+              src="/web-logo-3.jpeg"
+              alt="ZOORO Hospitality Private Limited"
+              width={1600}
+              height={482}
               priority
               className="h-auto w-full"
             />

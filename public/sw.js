@@ -1,5 +1,5 @@
 /* ZOORO Hospitality service worker — offline fallback */
-const CACHE = "zooro-offline-v1";
+const CACHE = "zooro-offline-v2";
 const OFFLINE_URL = "/offline";
 
 async function precache() {

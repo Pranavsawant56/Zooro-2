@@ -33,10 +33,10 @@ export default function Header() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
         <Link href="/" className="group flex items-center gap-3" aria-label="ZOORO Hospitality home">
           <Image
-            src="/web-logo-client.jpeg"
-            alt="ZOORO Catering & Meal Services"
-            width={1240}
-            height={496}
+            src="/web-logo-3.jpeg"
+            alt="ZOORO Hospitality Private Limited"
+            width={1600}
+            height={482}
             loading="eager"
             className="h-14 w-auto transition-transform duration-300 group-hover:scale-[1.03]"
           />

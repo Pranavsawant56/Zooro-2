@@ -750,7 +750,7 @@ export default function AboutPage() {
         </div>
 
         <Reveal className="relative mx-auto max-w-3xl px-6 text-center">
-          <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-brand-gold">
+          <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-white/75">
             Let&rsquo;s work together
           </p>
           <h2 className="mt-4 text-balance font-display text-3xl font-extrabold sm:text-5xl">
