@@ -3,63 +3,67 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Spinner from "@/components/Spinner";
+import FieldError from "@/components/FieldError";
+import { sendEnquiry } from "@/lib/enquiry";
+import {
+  ENQUIRY_SERVICES,
+  cleanEnquiry,
+  sanitizeDigits,
+  sanitizeInput,
+  sanitizeNameInput,
+  sanitizePhoneInput,
+  validateEnquiry,
+  type EnquiryErrors,
+  type EnquiryField,
+} from "@/lib/validation";
 
-const services = [
-  "Corporate canteen",
-  "Industrial catering",
-  "Festival & occasion meals",
-  "Events & buffets",
-  "Healthy meals",
-  "Food court",
-  "Weddings & bulk catering",
-  "Delivery kitchen",
-  "Other corporate meals",
-];
+const services = ENQUIRY_SERVICES;
 
 export default function ContactForm() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
+  const [errors, setErrors] = useState<EnquiryErrors>({});
   const [loading, setLoading] = useState(false);
+
+  const clearError = (field: EnquiryField) =>
+    setErrors((prev) => (prev[field] ? { ...prev, [field]: undefined } : prev));
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const d = Object.fromEntries(new FormData(form)) as Record<string, string>;
+    const raw = Object.fromEntries(new FormData(form)) as Record<string, string>;
 
-    if (!d.name?.trim() || !d.phone?.trim() || !/^\S+@\S+\.\S+$/.test(d.email ?? "")) {
-      setError("Enter your name, phone number and a valid email.");
+    const found = validateEnquiry(raw);
+    setErrors(found);
+
+    if (Object.keys(found).length > 0) {
+      setError("");
       setSent(false);
+      const field = (Object.keys(found) as EnquiryField[])[0];
+      form.querySelector<HTMLElement>(`[name="${field}"]`)?.focus();
       return;
     }
 
     setError("");
     setLoading(true);
     try {
-      const res = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(d),
-      });
-      const json = (await res.json().catch(() => null)) as
-        | { ok?: boolean; error?: string }
-        | null;
+      const result = await sendEnquiry(cleanEnquiry(raw));
 
-      if (!res.ok || !json?.ok) {
-        setError(json?.error ?? "Something went wrong. Please try again.");
+      if (!result.ok) {
+        setError(result.error);
         return;
       }
 
       setSent(true);
+      setErrors({});
       form.reset();
-    } catch {
-      setError("Network error. Please check your connection and try again.");
     } finally {
       setLoading(false);
     }
   }
 
   const field =
-    "mt-1 w-full rounded-xl border border-brand-ink/15 bg-white px-4 py-3 text-brand-ink outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/30";
+    "mt-1 w-full rounded-xl border border-brand-ink/15 bg-white px-4 py-3 text-brand-ink outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/30 aria-[invalid=true]:border-brand-red aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-brand-red/20";
   const label = "block text-sm font-semibold text-brand-ink";
 
   return (
@@ -84,23 +88,50 @@ export default function ContactForm() {
             autoComplete="name"
             required
             aria-required="true"
+            maxLength={120}
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby="contact-name-error"
+            onChange={(e) => {
+              sanitizeInput(e.currentTarget, sanitizeNameInput);
+              clearError("name");
+            }}
             className={field}
           />
+          <FieldError id="contact-name-error" message={errors.name} />
         </label>
         <label className={label}>
           Company
-          <input name="company" autoComplete="organization" className={field} />
+          <input
+            name="company"
+            autoComplete="organization"
+            maxLength={160}
+            aria-invalid={Boolean(errors.company)}
+            aria-describedby="contact-company-error"
+            onChange={() => clearError("company")}
+            className={field}
+          />
+          <FieldError id="contact-company-error" message={errors.company} />
         </label>
         <label className={label}>
           Phone <span className="text-brand-red">*</span>
           <input
             name="phone"
             type="tel"
+            inputMode="numeric"
             autoComplete="tel"
             required
             aria-required="true"
+            maxLength={16}
+            placeholder="10-digit mobile number"
+            aria-invalid={Boolean(errors.phone)}
+            aria-describedby="contact-phone-error"
+            onChange={(e) => {
+              sanitizeInput(e.currentTarget, sanitizePhoneInput);
+              clearError("phone");
+            }}
             className={field}
           />
+          <FieldError id="contact-phone-error" message={errors.phone} />
         </label>
         <label className={label}>
           Email <span className="text-brand-red">*</span>
@@ -110,8 +141,13 @@ export default function ContactForm() {
             autoComplete="email"
             required
             aria-required="true"
+            maxLength={160}
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby="contact-email-error"
+            onChange={() => clearError("email")}
             className={field}
           />
+          <FieldError id="contact-email-error" message={errors.email} />
         </label>
         <label className={label}>
           What do you need?
@@ -123,7 +159,20 @@ export default function ContactForm() {
         </label>
         <label className={label}>
           People per day (approx.)
-          <input name="people" inputMode="numeric" className={field} />
+          <input
+            name="people"
+            inputMode="numeric"
+            maxLength={12}
+            placeholder="e.g. 250"
+            aria-invalid={Boolean(errors.people)}
+            aria-describedby="contact-people-error"
+            onChange={(e) => {
+              sanitizeInput(e.currentTarget, (value) => sanitizeDigits(value, 6));
+              clearError("people");
+            }}
+            className={field}
+          />
+          <FieldError id="contact-people-error" message={errors.people} />
         </label>
       </div>
 
@@ -132,9 +181,14 @@ export default function ContactForm() {
         <textarea
           name="message"
           rows={4}
+          maxLength={4000}
           className={field}
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby="contact-message-error"
+          onChange={() => clearError("message")}
           placeholder="Location, dates, occasion, anything else we should know"
         />
+        <FieldError id="contact-message-error" message={errors.message} />
       </label>
 
       <AnimatePresence mode="wait">

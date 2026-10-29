@@ -27,18 +27,19 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b border-t-4 border-b-brand-ink/10 border-t-brand-red bg-white/95 backdrop-blur-md transition-shadow duration-300 ${scrolled ? "shadow-lg shadow-brand-ink/10" : "shadow-sm shadow-brand-ink/5"
+      className={`sticky top-0 z-50 border-b border-t-4 border-b-brand-ink/10 border-t-brand-red bg-white backdrop-blur-md transition-shadow duration-300 ${scrolled ? "shadow-lg shadow-brand-ink/10" : "shadow-sm shadow-brand-ink/5"
         }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3">
         <Link href="/" className="group flex items-center gap-3" aria-label="ZOORO Hospitality home">
           <Image
-            src="/web-logo-3.jpeg"
+            src="/web-logo-4.png"
             alt="ZOORO Hospitality Private Limited"
-            width={1600}
-            height={482}
+            width={2170}
+            height={725}
+            sizes="192px"
             loading="eager"
-            className="h-14 w-auto transition-transform duration-300 group-hover:scale-[1.03]"
+            className="h-16 w-auto transition-transform duration-300 group-hover:scale-[1.03]"
           />
         </Link>
 

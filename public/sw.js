@@ -1,6 +1,7 @@
 /* ZOORO Hospitality service worker — offline fallback */
-const CACHE = "zooro-offline-v2";
-const OFFLINE_URL = "/offline";
+const CACHE = "zooro-offline-v3";
+/* The site is exported with `trailingSlash: true`, so pages live at `/x/`. */
+const OFFLINE_URL = "/offline/";
 
 async function precache() {
   const cache = await caches.open(CACHE);

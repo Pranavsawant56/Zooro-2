@@ -12,8 +12,19 @@ import {
 } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import Spinner from "@/components/Spinner";
+import FieldError from "@/components/FieldError";
 import { ClientLogoMarquee } from "./components/ClientLogos";
 import { additionalServices, contact } from "@/lib/site";
+import { sendEnquiry } from "@/lib/enquiry";
+import {
+  cleanEnquiry,
+  sanitizeInput,
+  sanitizeNameInput,
+  sanitizePhoneInput,
+  validateEnquiry,
+  type EnquiryErrors,
+  type EnquiryField,
+} from "@/lib/validation";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -172,10 +183,11 @@ function HeroLogo() {
             transition={{ duration: 1.4, delay: 0.75, ease }}
           >
             <Image
-              src="/web-logo-3.jpeg"
+              src="/web-logo-4.png"
               alt="ZOORO Hospitality Private Limited"
-              width={1600}
-              height={482}
+              width={2170}
+              height={725}
+              sizes="(min-width: 1024px) 400px, 80vw"
               priority
               className="h-auto w-full"
             />
@@ -238,61 +250,117 @@ function Steps() {
 function EnquiryForm() {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
+  const [errors, setErrors] = useState<EnquiryErrors>({});
   const [loading, setLoading] = useState(false);
+
+  const clearError = (field: EnquiryField) =>
+    setErrors((prev) => (prev[field] ? { ...prev, [field]: undefined } : prev));
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
-    const d = Object.fromEntries(new FormData(form)) as Record<string, string>;
-    if (!d.name?.trim() || !d.phone?.trim() || !/^\S+@\S+\.\S+$/.test(d.email ?? "")) {
-      setError("Enter your name, phone number and a valid email.");
+    const raw = Object.fromEntries(new FormData(form)) as Record<string, string>;
+
+    const found = validateEnquiry(raw);
+    setErrors(found);
+
+    if (Object.keys(found).length > 0) {
+      setError("");
       setSent(false);
+      const field = (Object.keys(found) as EnquiryField[])[0];
+      form.querySelector<HTMLElement>(`[name="${field}"]`)?.focus();
       return;
     }
+
     setError("");
     setLoading(true);
     try {
-      const res = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(d),
-      });
-      const json = (await res.json().catch(() => null)) as
-        | { ok?: boolean; error?: string }
-        | null;
-      if (!res.ok || !json?.ok) {
-        setError(json?.error ?? "Something went wrong. Please try again.");
+      const result = await sendEnquiry(cleanEnquiry(raw));
+      if (!result.ok) {
+        setError(result.error);
         return;
       }
       setSent(true);
+      setErrors({});
       form.reset();
-    } catch {
-      setError("Network error. Please check your connection and try again.");
     } finally {
       setLoading(false);
     }
   }
 
   const field =
-    "mt-1 w-full min-w-0 rounded-xl border border-brand-ink/15 bg-white px-3 py-2.5 text-brand-ink outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/30";
+    "mt-1 w-full min-w-0 rounded-xl border border-brand-ink/15 bg-white px-3 py-2.5 text-brand-ink outline-none transition focus:border-brand-red focus:ring-2 focus:ring-brand-red/30 aria-[invalid=true]:border-brand-red aria-[invalid=true]:ring-2 aria-[invalid=true]:ring-brand-red/20";
+  const label = "text-sm font-semibold text-brand-ink";
 
   return (
     <form onSubmit={onSubmit} noValidate className="w-full min-w-0 rounded-3xl bg-white p-5 shadow-sm ring-1 ring-brand-ink/10 sm:p-6">
       <div className="grid gap-3 sm:grid-cols-2">
-        <label className="text-sm font-semibold text-brand-ink">Your name
-          <input name="name" autoComplete="name" required aria-required="true" className={field} />
+        <label className={label}>Your name <span className="text-brand-red">*</span>
+          <input
+            name="name"
+            autoComplete="name"
+            required
+            aria-required="true"
+            maxLength={120}
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby="home-name-error"
+            onChange={(e) => {
+              sanitizeInput(e.currentTarget, sanitizeNameInput);
+              clearError("name");
+            }}
+            className={field}
+          />
+          <FieldError id="home-name-error" message={errors.name} />
         </label>
-        <label className="text-sm font-semibold text-brand-ink">Company
-          <input name="company" autoComplete="organization" className={field} />
+        <label className={label}>Company
+          <input
+            name="company"
+            autoComplete="organization"
+            maxLength={160}
+            aria-invalid={Boolean(errors.company)}
+            aria-describedby="home-company-error"
+            onChange={() => clearError("company")}
+            className={field}
+          />
+          <FieldError id="home-company-error" message={errors.company} />
         </label>
-        <label className="text-sm font-semibold text-brand-ink">Phone
-          <input name="phone" type="tel" autoComplete="tel" required aria-required="true" className={field} />
+        <label className={label}>Phone <span className="text-brand-red">*</span>
+          <input
+            name="phone"
+            type="tel"
+            inputMode="numeric"
+            autoComplete="tel"
+            required
+            aria-required="true"
+            maxLength={16}
+            placeholder="10-digit mobile number"
+            aria-invalid={Boolean(errors.phone)}
+            aria-describedby="home-phone-error"
+            onChange={(e) => {
+              sanitizeInput(e.currentTarget, sanitizePhoneInput);
+              clearError("phone");
+            }}
+            className={field}
+          />
+          <FieldError id="home-phone-error" message={errors.phone} />
         </label>
-        <label className="text-sm font-semibold text-brand-ink">Email
-          <input name="email" type="email" autoComplete="email" required aria-required="true" className={field} />
+        <label className={label}>Email <span className="text-brand-red">*</span>
+          <input
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            aria-required="true"
+            maxLength={160}
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby="home-email-error"
+            onChange={() => clearError("email")}
+            className={field}
+          />
+          <FieldError id="home-email-error" message={errors.email} />
         </label>
       </div>
-      <label className="mt-3 block text-sm font-semibold text-brand-ink">What do you need?
+      <label className={`mt-3 block ${label}`}>What do you need?
         <select name="service" className={field}>
           <option>Corporate canteen</option>
           <option>Industrial catering</option>
@@ -304,8 +372,18 @@ function EnquiryForm() {
           <option>Delivery kitchen</option>
         </select>
       </label>
-      <label className="mt-3 block text-sm font-semibold text-brand-ink">Message
-        <textarea name="message" rows={3} className={field} placeholder="Location, headcount, dates…" />
+      <label className={`mt-3 block ${label}`}>Message
+        <textarea
+          name="message"
+          rows={3}
+          maxLength={4000}
+          className={field}
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby="home-message-error"
+          onChange={() => clearError("message")}
+          placeholder="Location, headcount, dates…"
+        />
+        <FieldError id="home-message-error" message={errors.message} />
       </label>
 
       <AnimatePresence mode="wait">

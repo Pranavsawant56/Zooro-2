@@ -8,7 +8,7 @@ import { clients, contact, factSheet, management } from "@/lib/site";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "ZOORO Hospitality is a Pune-based food-service provider delivering high-quality, hygienic and home-style meals for corporate and industrial establishments, with 23 and 10 years of management experience.",
+    "ZOORO Hospitality is a Pune-based food-service provider delivering high-quality, hygienic and home-style meals for corporate and industrial establishments, with 23, 20 and 10 years of management experience.",
 };
 
 /* ---------- icons ---------- */
@@ -233,7 +233,7 @@ export default function AboutPage() {
                   src="/Flaming wok stir-fry in a professional kitchen.png"
                   alt="A ZOORO chef cooking over an open flame"
                   fill
-                  priority
+                  preload
                   sizes="(min-width: 1024px) 45vw, 100vw"
                   className="object-cover"
                 />
@@ -368,7 +368,7 @@ export default function AboutPage() {
             </Reveal>
           </div>
 
-          <div className="mt-12 grid gap-5 md:grid-cols-2">
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {management.map((person, i) => (
               <Reveal key={person.name} delay={i * 0.08} className="h-full">
                 <article className="group flex h-full flex-col rounded-3xl border border-white/10 bg-white/[0.04] p-7 transition-colors duration-300 hover:border-brand-gold/30 hover:bg-white/[0.06] sm:p-8">
@@ -394,9 +394,14 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <h3 className="mt-6 font-display text-xl font-extrabold">{person.name}</h3>
-                  <p className="mt-1 text-xs font-bold uppercase tracking-[0.16em] text-brand-gold/80">
-                    {person.role}
-                  </p>
+                  {person.role ? (
+                    <p className="mt-1 text-xs font-bold uppercase tracking-[0.16em] text-brand-gold/80">
+                      {person.role}
+                    </p>
+                  ) : (
+                    /* Reserve the role line so descriptions stay aligned across cards. */
+                    <span aria-hidden className="mt-1 block h-4" />
+                  )}
                   <p className="mt-3 text-sm leading-relaxed text-white/65 sm:text-base">
                     {person.description}
                   </p>
@@ -507,6 +512,7 @@ export default function AboutPage() {
                   src="/Flaming wok stir-fry in a professional kitchen.png"
                   alt="A ZOORO chef cooking in a high-volume kitchen"
                   fill
+                  quality={60}
                   sizes="(min-width: 1024px) 440px, (min-width: 640px) 380px, 50vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
@@ -586,25 +592,36 @@ export default function AboutPage() {
               </div>
             </Reveal>
 
-            <ul className="divide-y divide-white/10 border-y border-white/10">
-              {whatWeDo.map((w, i) => (
-                <li key={w.title}>
-                  <Reveal delay={i * 0.05}>
-                    <div className="group grid grid-cols-[auto_1fr] gap-5 py-6">
-                      <span className="pt-1 font-display text-sm font-bold text-brand-gold/80">
-                        0{i + 1}
-                      </span>
-                      <div>
-                        <h3 className="font-display text-lg font-extrabold transition-colors group-hover:text-brand-gold sm:text-xl">
-                          {w.title}
-                        </h3>
-                        <p className="mt-1.5 text-sm text-white/65 sm:text-base">{w.text}</p>
+            <div className="relative">
+              <ul
+                tabIndex={0}
+                role="region"
+                aria-label="What we do — scroll for all eight services"
+                className="zooro-scroll max-h-[420px] divide-y divide-white/10 overflow-y-auto overscroll-contain border-y border-white/10 pb-12 pr-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/60"
+              >
+                {whatWeDo.map((w, i) => (
+                  <li key={w.title}>
+                    <Reveal delay={i * 0.05}>
+                      <div className="group grid grid-cols-[auto_1fr] gap-5 py-6">
+                        <span className="pt-1 font-display text-sm font-bold text-brand-gold/80">
+                          0{i + 1}
+                        </span>
+                        <div>
+                          <h3 className="font-display text-lg font-extrabold transition-colors group-hover:text-brand-gold sm:text-xl">
+                            {w.title}
+                          </h3>
+                          <p className="mt-1.5 text-sm text-white/65 sm:text-base">{w.text}</p>
+                        </div>
                       </div>
-                    </div>
-                  </Reveal>
-                </li>
-              ))}
-            </ul>
+                    </Reveal>
+                  </li>
+                ))}
+              </ul>
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-brand-ink to-transparent"
+              />
+            </div>
           </div>
         </div>
       </section>

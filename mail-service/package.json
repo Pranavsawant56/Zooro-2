@@ -1,0 +1,16 @@
+{
+  "name": "zooro-mail-service",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Standalone nodemailer endpoint for ZOORO website enquiries",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "dependencies": {
+    "nodemailer": "^7.0.0"
+  }
+}

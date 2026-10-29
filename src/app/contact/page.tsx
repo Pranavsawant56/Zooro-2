@@ -8,7 +8,7 @@ import { contact } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with ZOORO Hospitality in Pune for corporate canteens, industrial catering, festival meals, events, healthy meals, food courts, weddings, bulk catering and delivery kitchen services. Call +91 97633 72666 or email sagar@zoorohospitality.com.",
+    "Get in touch with ZOORO Hospitality in Pune for corporate canteens, industrial catering, festival meals, events, healthy meals, food courts, weddings, bulk catering and delivery kitchen services. Call +91 97633 72666 or email info@zoorohospitality.com.",
 };
 
 const helpWith = [

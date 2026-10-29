@@ -9,8 +9,20 @@ import { useEffect } from "react";
  */
 export default function ServiceWorkerRegister() {
   useEffect(() => {
-    if (process.env.NODE_ENV !== "production") return;
     if (typeof navigator === "undefined" || !("serviceWorker" in navigator)) return;
+
+    if (process.env.NODE_ENV !== "production") {
+      /* A worker installed by an earlier production run keeps serving cached
+         dev chunks (cache-first for `/_next/`), which shows stale code — e.g.
+         an old enquiry endpoint. Remove it so `next dev` always runs fresh. */
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        registrations.forEach((registration) => registration.unregister());
+      });
+      if (typeof caches !== "undefined") {
+        caches.keys().then((keys) => keys.forEach((key) => caches.delete(key)));
+      }
+      return;
+    }
 
     const register = () => {
       navigator.serviceWorker.register("/sw.js").catch(() => {

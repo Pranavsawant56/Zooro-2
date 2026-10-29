@@ -8,7 +8,7 @@ export const contact = {
     { display: "+91 97633 72666", href: "tel:+919763372666" },
     { display: "+91 97639 75666", href: "tel:+919763975666" },
   ],
-  email: "sagar@zoorohospitality.com",
+  email: "info@zoorohospitality.com",
   website: "www.zoorohospitality.com",
   websiteHref: "https://www.zoorohospitality.com",
   director: "Sagar Pattanshetty",
@@ -82,7 +82,14 @@ export const clients: Client[] = [
   },
 ];
 
-export const management = [
+export type ManagementMember = {
+  name: string;
+  role?: string;
+  years: string;
+  description: string;
+};
+
+export const management: ManagementMember[] = [
   {
     name: "Mr. Vijay Kasurde",
     role: "Management team",
@@ -96,6 +103,12 @@ export const management = [
     years: "10",
     description:
       "A decade in the food industry, leading client relationships, menu planning and day-to-day service standards.",
+  },
+  {
+    name: "Mr. Roshan Gupta",
+    years: "20",
+    description:
+      "Two decades in food service, overseeing multi-site kitchen operations, procurement and hygiene compliance.",
   },
 ];
 
@@ -116,7 +129,7 @@ export const factSheet = [
     note: "Indian, Chinese, Italian and custom menus",
   },
   {
-    value: "23 & 10",
+    value: "23, 20 & 10",
     label: "years of leadership",
     note: "Combined food-industry experience",
   },

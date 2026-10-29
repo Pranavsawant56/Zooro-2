@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { connection } from "next/server";
-import { Suspense } from "react";
 import { contact } from "@/lib/site";
 
 const quick = [
@@ -22,9 +20,10 @@ const services = [
   "Delivery kitchen",
 ];
 
-async function CurrentYear() {
-  await connection();
-  return new Date().getFullYear();
+/* The footer is prerendered at build time, so the year is baked into the
+   exported HTML. Rebuild once a year (or on the next deploy) to refresh it. */
+function CurrentYear() {
+  return <>{new Date().getFullYear()}</>;
 }
 
 export default function Footer() {
@@ -116,8 +115,23 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10 px-6 py-5 text-center text-xs text-white/50">
-        © <Suspense fallback={null}><CurrentYear /></Suspense> ZOORO Hospitality Pvt. Ltd. All rights reserved.
+      <div className="border-t border-white/10 px-6 py-5">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 text-center text-xs text-white/50 sm:flex-row sm:text-left">
+          <p>
+            © <CurrentYear /> ZOORO Hospitality Pvt. Ltd. All rights reserved.
+          </p>
+          <p>
+            Developed by{" "}
+            <a
+              href="https://www.tekunik.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-white/70 underline-offset-4 transition-colors hover:text-brand-gold hover:underline"
+            >
+              Tekunik
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );

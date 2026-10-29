@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { brand } from "@/lib/brand";
 
+/* Required so the manifest is emitted as a static file when using `output: "export"`. */
+export const dynamic = "force-static";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "ZOORO Hospitality",

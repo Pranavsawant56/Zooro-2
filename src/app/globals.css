@@ -78,3 +78,34 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Slim, brand-coloured scrollbar for the compact scroll panels.
+   Firefox needs scrollbar-width/color; Blink/WebKit uses the pseudo-elements
+   below (setting scrollbar-color there would bring back the classic arrows). */
+@supports not selector(::-webkit-scrollbar) {
+  .zooro-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--brand-gold) 60%, transparent) transparent;
+  }
+}
+
+.zooro-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.zooro-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.zooro-scroll::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--brand-gold) 55%, transparent);
+}
+
+.zooro-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-gold);
+}
+
+.zooro-scroll::-webkit-scrollbar-button {
+  display: none;
+}
