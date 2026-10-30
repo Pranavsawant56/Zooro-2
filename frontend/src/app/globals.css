@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   ZOORO brand palette — the single source of truth for colour.
+   Change a value here and every place that uses it updates.
+
+   Use in markup:   bg-brand-red, text-brand-ink, border-brand-gold …
+   Use in CSS/SVG:  var(--brand-red), var(--brand-cream) …
+------------------------------------------------------------------ */
+:root {
+  /* Sampled from the ZOORO logo: dark red #ed2b36, light orange #fe8302.
+     Token names are kept for compatibility: `red` is the dark logo red,
+     `gold` is the light logo orange, and `leaf` is mapped to the light
+     orange so existing accents stay on-brand. */
+  --brand-red: #ed2b36;
+  --brand-red-dark: #c41f2a;
+  --brand-red-light: #fe8302;
+  --brand-gold: #fe8302;
+  --brand-leaf: #fe8302;
+  --brand-leaf-light: #ffa24a;
+  --brand-leaf-dark: #a95400;
+  --brand-leaf-mist: #fff0e2;
+  --brand-ink: #1b1b1b;
+  --brand-cream: #fff8ec;
+
+  --background: var(--brand-cream);
+  --foreground: var(--brand-ink);
+}
+
+/* Expose the palette to Tailwind's utilities. */
+@theme inline {
+  --color-brand-red: var(--brand-red);
+  --color-brand-red-dark: var(--brand-red-dark);
+  --color-brand-red-light: var(--brand-red-light);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-leaf: var(--brand-leaf);
+  --color-brand-leaf-light: var(--brand-leaf-light);
+  --color-brand-leaf-dark: var(--brand-leaf-dark);
+  --color-brand-leaf-mist: var(--brand-leaf-mist);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-cream: var(--brand-cream);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Framer Motion writes the animated state as inline styles. Show the final
+     state immediately for visitors who prefer reduced motion, rather than
+     branching the render on the client and breaking hydration. */
+  .zooro-hero [style],
+  .zooro-emblem [style],
+  .zooro-tabpanel[style] {
+    opacity: 1 !important;
+    transform: none !important;
+    stroke-dasharray: none !important;
+  }
+
+  .zooro-emblem [style] {
+    clip-path: none !important;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Slim, brand-coloured scrollbar for the compact scroll panels.
+   Firefox needs scrollbar-width/color; Blink/WebKit uses the pseudo-elements
+   below (setting scrollbar-color there would bring back the classic arrows). */
+@supports not selector(::-webkit-scrollbar) {
+  .zooro-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--brand-gold) 60%, transparent) transparent;
+  }
+}
+
+.zooro-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.zooro-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.zooro-scroll::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--brand-gold) 55%, transparent);
+}
+
+.zooro-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-gold);
+}
+
+.zooro-scroll::-webkit-scrollbar-button {
+  display: none;
+}
